@@ -1,17 +1,35 @@
 import React from 'react';
+import { Switch, Route, Router } from 'react-router';
+import routes from "./consts/routes";
+import { history } from "./configureStore";
+import {
+    MainScreen,
+    RegistrationScreen,
+    AuthorizationScreen,
+    StatisticScreen,
+    GameSelectScreen,
+    FirstGameScreen,
+    SecondGameScreen
+} from '../src/screens';
+
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Router history={ history }>
+            <Switch>
+                <Route path={routes.getGameScreen(2)} component={SecondGameScreen} />
+                <Route path={routes.getGameScreen(1)} component={FirstGameScreen} />
+                <Route path={routes.getSelectGameScreen()} component={GameSelectScreen} />
+                <Route path={routes.getStatisticsScreen()} component={StatisticScreen} />
+                <Route path={routes.getMainScreen()} component={MainScreen} />
+                <Route path={routes.getRegistration()} component={RegistrationScreen} />
+                <Route path={routes.getAuthorization()} component={AuthorizationScreen} />
+            </Switch>
+        </Router>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

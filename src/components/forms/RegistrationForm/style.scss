@@ -1,0 +1,38 @@
+.registrationForm {
+  border: 1px solid deepskyblue;
+  border-radius: 5px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+
+  &__title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  &__registrationBar {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    height: 20px;
+    font-size: 14px;
+
+    &__link {
+      text-decoration: none;
+      color: deepskyblue;
+      opacity: 1;
+      transition: opacity ease-in 0.5s;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+    //&:visited {
+    //  color: white;
+    //  text-decoration: none;
+    //}
+  }
+}

@@ -1,0 +1,20 @@
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background: #87ddef;
+    color: white;
+    opacity: 1;
+    transition: opacity ease-in 0.5s;
+    cursor: pointer;
+
+    &:hover{
+      opacity: .5;
+    }
+  }
+}
