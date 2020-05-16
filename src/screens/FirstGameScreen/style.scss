@@ -4,12 +4,11 @@
   justify-content: center;
 
   &__gameWrapper {
-    padding: 100px;
+    padding: 60px 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 1200px;
     border-radius: 10px;
     border: 1px solid black;
     min-height: 400px;
@@ -52,8 +51,8 @@
     };
 
     &__gameScreen {
-      width: 800px;
-      height: 800px;
+      width: 700px;
+      height: 700px;
       border: 1px solid black;
       background: lightgray;
       position: relative;

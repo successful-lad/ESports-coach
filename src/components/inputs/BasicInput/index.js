@@ -9,7 +9,7 @@ const BasicInput = ({
                         label
                     }) => {
     return (
-      /*Todo добавитьвалидацию на поля ввода форм*/
+      /*Todo добавить валидацию на поля ввода форм*/
         <div
             className='basicInput'
         >

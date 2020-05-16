@@ -5,6 +5,7 @@ import FirstGameScreen from "./FirstGameScreen";
 import StatisticScreen from "./StatisticScreen";
 import GameSelectScreen from "./GameSelectScreen";
 import SecondGameScreen from "./SecondGameScreen";
+import ThirdGameScreen from './ThirdGameScreen';
 
 export {
     MainScreen,
@@ -14,4 +15,5 @@ export {
     StatisticScreen,
     GameSelectScreen,
     SecondGameScreen,
+    ThirdGameScreen,
 }

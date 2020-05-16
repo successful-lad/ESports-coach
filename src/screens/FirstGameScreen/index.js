@@ -14,14 +14,14 @@ const FirstGameScreen = () => {
 
   const onRandomShowBlock = useCallback(() => {
 
-    const topCoordinates = Math.floor(Math.random() * (750 - 40)) + 40
-    const leftCoordinates = Math.floor(Math.random() * (750 - 40)) + 40;
+    const topCoordinates = Math.floor(Math.random() * (650 - 40)) + 40
+    const leftCoordinates = Math.floor(Math.random() * (650 - 40)) + 40;
     setCoordinatesArray([...coordinatesArray, [topCoordinates, leftCoordinates]]);
     setTimeCount(value => value + 1);
   }, [coordinatesArray]);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 10) {
+    if (isGameNow && timeCount < 30) {
       let newTimeOut = 2000;
       if (gameDifficulty) {
         newTimeOut = 2000 - gameDifficulty * 15;
@@ -32,7 +32,7 @@ const FirstGameScreen = () => {
   }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
 
   useEffect(() => {
-    if(timeCount === 10) {
+    if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userHit * 50} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);

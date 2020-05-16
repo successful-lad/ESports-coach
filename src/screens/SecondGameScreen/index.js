@@ -9,19 +9,19 @@ const SecondGameScreen = () => {
   const [userMissed, setUserMissed] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
-  console.log(isGameNow)
+  const [userScore, setUserScore] = useState(0)
   /* Todo Спросить Илью Про useCallback*/
 
   const onRandomShowBlock = useCallback(() => {
 
-    const topCoordinates = Math.floor(Math.random() * (750 - 40)) + 40
-    const leftCoordinates = Math.floor(Math.random() * (750 - 40)) + 40;
-    setCoordinatesArray([...coordinatesArray, [topCoordinates, leftCoordinates]]);
+    const topCoordinates = Math.floor(Math.random() * (610 - 40)) + 40
+    const leftCoordinates = Math.floor(Math.random() * (610 - 40)) + 40;
+    setCoordinatesArray([topCoordinates, leftCoordinates]);
     setTimeCount(value => value + 1);
-  }, [coordinatesArray]);
+  }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 10) {
+    if (isGameNow && timeCount < 30) {
       let newTimeOut = 2000;
       if (gameDifficulty) {
         newTimeOut = 2000 - gameDifficulty * 15;
@@ -32,8 +32,8 @@ const SecondGameScreen = () => {
   }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
 
   useEffect(() => {
-    if(timeCount === 10) {
-      alert(`Игра окончена, ваш результат ${userHit * 50} очков`)
+    if(timeCount === 30) {
+      alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -41,7 +41,7 @@ const SecondGameScreen = () => {
       setIsGameNow(false);
       setGameDifficulty(0)
     }
-  }, [timeCount, userHit])
+  }, [timeCount, userHit, userScore])
 
   const chanceToHit = useMemo(() => {
       if(isNaN(userHit/userMissed)) {
@@ -49,33 +49,35 @@ const SecondGameScreen = () => {
       } else  {
         return (100 - (100 /((userHit + userMissed)) * userMissed)).toFixed(2);
       }
-    }
-    ,
-    [userMissed, userHit])
+    }, [userMissed, userHit])
 
-  const deleteBlock = (id) => {
-    setCoordinatesArray(coordinatesArray.filter((arr, index) =>
-      id !== index && arr
-    ))
+  const addScoreAndDelete = (event) => {
+    setUserHit(value => value +1);
+    setUserScore( value => value + 50);
+    event.stopPropagation();
+    setCoordinatesArray([]);
   };
 
-  const addScore = (event, index) => {
-    setUserHit(value => value +1)
-    event.stopPropagation()
-    deleteBlock(index);
+  const handleMissingClick = () => {
+    setUserMissed(value => value +1 );
+    if (userScore >= 20) {
+      setUserScore(value => value - 20);
+    } else {
+      setUserScore(0)
+    }
   };
 
   return (
-    <div className='firstGameScreen'>
-      <div className='firstGameScreen__gameWrapper'>
-        <div className='firstGameScreen__gameWrapper__settingBar'>
+    <div className='secondGameScreen'>
+      <div className='secondGameScreen__gameWrapper'>
+        <div className='secondGameScreen__gameWrapper__settingBar'>
           <button
-            className='firstGameScreen__gameWrapper__settingBar__button'
+              className='secondGameScreen__gameWrapper__settingBar__button'
             onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div className='firstGameScreen__gameWrapper__settingBar__difficultyScale'>
+          <div className='secondGameScreen__gameWrapper__settingBar__difficultyScale'>
             0
             <input
               type="range"
@@ -87,9 +89,9 @@ const SecondGameScreen = () => {
             100
           </div>
         </div>
-        <div className='firstGameScreen__gameWrapper__title'>
+        <div className='secondGameScreen__gameWrapper__title'>
           <div>
-            Очки пользователя { userHit * 50 }
+            Очки пользователя { userScore }
           </div>
           <div>
             Шанс попадения {chanceToHit}
@@ -97,18 +99,21 @@ const SecondGameScreen = () => {
         </div>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
-          onClick={() => setUserMissed(value => value +1 ) }
-          className="firstGameScreen__gameWrapper__gameScreen">
-          {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) =>{
-            return (
+          onClick={handleMissingClick}
+          // onClick={() => setUserMissed(value => value +1 )
+          className="secondGameScreen__gameWrapper__gameScreen">
+          {coordinatesArray.length > 0 &&
               <div
-                key={index}
-                onClick={event => addScore(event, index)}
-                className="firstGameScreen__gameWrapper__gameScreen__handleItem"
-                style={{top: crts[0], left: crts[1]}}
+                onClick={event => addScoreAndDelete(event)}
+                className="secondGameScreen__gameWrapper__gameScreen__handleItem"
+                style={
+                  {
+                    top: coordinatesArray[0],
+                    left: coordinatesArray[1],
+                  }
+                }
               />
-            )
-          } )}
+          }
         </div>
       </div>
     </div>

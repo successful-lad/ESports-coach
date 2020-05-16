@@ -9,7 +9,8 @@ import {
     StatisticScreen,
     GameSelectScreen,
     FirstGameScreen,
-    SecondGameScreen
+    SecondGameScreen,
+    ThirdGameScreen
 } from '../src/screens';
 
 import ReactDOM from 'react-dom';
@@ -18,7 +19,8 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <React.StrictMode>
         <Router history={ history }>
-            <Switch>
+            <Switch>ThirdGameScreen
+                <Route path={routes.getGameScreen(3)} component={ThirdGameScreen} />
                 <Route path={routes.getGameScreen(2)} component={SecondGameScreen} />
                 <Route path={routes.getGameScreen(1)} component={FirstGameScreen} />
                 <Route path={routes.getSelectGameScreen()} component={GameSelectScreen} />
