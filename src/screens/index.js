@@ -11,6 +11,7 @@ import EighthGameScreen from './EighthGameScreen';
 import NinthGameScreen from "./NinthGameScreen";
 import FifthGameScreen from "./FifthGameScreen";
 import SixthGameScreen from "./SixthGameScreen";
+import SevenGameScreen from "./ SevenGameScreen";
 
 export {
     MainScreen,
@@ -25,5 +26,6 @@ export {
     EighthGameScreen,
     NinthGameScreen,
     FifthGameScreen,
-    SixthGameScreen
+    SixthGameScreen,
+    SevenGameScreen
 }

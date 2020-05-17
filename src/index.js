@@ -16,7 +16,7 @@ import {
     NinthGameScreen,
     FifthGameScreen,
     SixthGameScreen,
-  // 7
+    SevenGameScreen,
 } from '../src/screens';
 
 import ReactDOM from 'react-dom';
@@ -28,7 +28,7 @@ ReactDOM.render(
             <Switch>
                 <Route path={routes.getGameScreen(9)} component={NinthGameScreen} />
                 <Route path={routes.getGameScreen(8)} component={EighthGameScreen} />
-                <Route path={routes.getGameScreen(7)} component={EighthGameScreen} />
+                <Route path={routes.getGameScreen(7)} component={SevenGameScreen} />
                 <Route path={routes.getGameScreen(6)} component={SixthGameScreen} />
                 <Route path={routes.getGameScreen(5)} component={FifthGameScreen} />
                 <Route path={routes.getGameScreen(4)} component={FourthGameScreen} />
