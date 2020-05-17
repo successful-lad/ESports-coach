@@ -2,22 +2,22 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 import './style.scss';
 
-const NinthGameScreen = () => {
+const EighthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [userMissed, setUserMissed] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
-/* Todo Спросить Илью Про useCallback*/
+  const [userScore, setUserScore] = useState(0)
 
   const onRandomShowBlock = useCallback(() => {
 
     const topCoordinates = Math.floor(Math.random() * (650 - 40)) + 40
     const leftCoordinates = Math.floor(Math.random() * (650 - 40)) + 40;
-    setCoordinatesArray([...coordinatesArray, [topCoordinates, leftCoordinates]]);
+    setCoordinatesArray([topCoordinates, leftCoordinates]);
     setTimeCount(value => value + 1);
-  }, [coordinatesArray]);
+  }, []);
 
   useEffect(() => {
     if (isGameNow && timeCount < 30) {
@@ -32,7 +32,7 @@ const NinthGameScreen = () => {
 
   useEffect(() => {
     if(timeCount === 30) {
-      alert(`Игра окончена, ваш результат ${userHit * 50} очков`)
+      alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -40,7 +40,7 @@ const NinthGameScreen = () => {
       setIsGameNow(false);
       setGameDifficulty(0)
     }
-  }, [timeCount, userHit])
+  }, [timeCount, userHit, userScore])
 
   const chanceToHit = useMemo(() => {
     if(isNaN(userHit/userMissed)) {
@@ -48,33 +48,35 @@ const NinthGameScreen = () => {
     } else  {
       return (100 - (100 /((userHit + userMissed)) * userMissed)).toFixed(2);
     }
-  }
-     ,
-    [userMissed, userHit])
+  }, [userMissed, userHit])
 
-  const deleteBlock = (id) => {
-    setCoordinatesArray(coordinatesArray.filter((arr, index) =>
-      id !== index && arr
-    ))
+  const addScoreAndDelete = (event) => {
+    setUserHit(value => value +1);
+    setUserScore( value => value + 50);
+    event.stopPropagation();
+    setCoordinatesArray([]);
   };
 
-  const addScore = (event, index) => {
-    setUserHit(value => value +1)
-    event.stopPropagation()
-    deleteBlock(index);
+  const handleMissingClick = () => {
+    setUserMissed(value => value +1 );
+    if (userScore >= 20) {
+      setUserScore(value => value - 20);
+    } else {
+      setUserScore(0)
+    }
   };
 
   return (
-    <div className='firstGameScreen'>
-      <div className='firstGameScreen__gameWrapper'>
-        <div className='firstGameScreen__gameWrapper__settingBar'>
+    <div className='eighthGameScreen'>
+      <div className='eighthGameScreen__gameWrapper'>
+        <div className='eighthGameScreen__gameWrapper__settingBar'>
           <button
-            className='firstGameScreen__gameWrapper__settingBar__button'
+            className='eighthGameScreen__gameWrapper__settingBar__button'
             onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div className='firstGameScreen__gameWrapper__settingBar__difficultyScale'>
+          <div className='eighthGameScreen__gameWrapper__settingBar__difficultyScale'>
             0
             <input
               type="range"
@@ -86,32 +88,35 @@ const NinthGameScreen = () => {
             100
           </div>
         </div>
-        <div className='firstGameScreen__gameWrapper__title'>
+        <div className='eighthGameScreen__gameWrapper__title'>
           <div>
-          Очки пользователя { userHit * 50 }
-        </div>
+            Очки пользователя { userScore }
+          </div>
           <div>
-          Шанс попадения {chanceToHit}
-        </div>
+            Шанс попадения {chanceToHit}
+          </div>
         </div>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
-          onClick={() => setUserMissed(value => value +1 ) }
-          className="firstGameScreen__gameWrapper__gameScreen">
-          {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) =>{
-            return (
-              <div
-                key={index}
-                onClick={event => addScore(event, index)}
-                className="firstGameScreen__gameWrapper__gameScreen__handleItem"
-                style={{top: crts[0], left: crts[1]}}
-              />
-            )
-          } )}
+          onClick={handleMissingClick}
+          // onClick={() => setUserMissed(value => value +1 )
+          className="eighthGameScreen__gameWrapper__gameScreen">
+          {coordinatesArray.length > 0 &&
+          <div
+            onClick={event => addScoreAndDelete(event)}
+            className="eighthGameScreen__gameWrapper__gameScreen__handleItem"
+            style={
+              {
+                top: coordinatesArray[0],
+                left: coordinatesArray[1],
+              }
+            }
+          />
+          }
         </div>
       </div>
     </div>
   )
 };
 
-export default NinthGameScreen;
+export default EighthGameScreen;

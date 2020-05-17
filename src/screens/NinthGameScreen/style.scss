@@ -1,0 +1,97 @@
+.ninthGameScreen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__gameWrapper {
+    padding: 60px 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid black;
+    min-height: 400px;
+
+    &__settingBar {
+      display: flex;
+      justify-content: space-between;
+      width: 804px;
+      margin-bottom: 40px;
+
+      &__button {
+        height: 40px;
+        box-sizing: border-box;
+        padding: 10px 20px;
+        font-size: 14px;
+        border: 1px solid black;
+        background: none;
+        transition: background 0.5s ease-in,
+        color 0.5s ease-in;
+
+        &:hover {
+          background: black;
+          color: white;
+        }
+      }
+
+      &__difficultyScale {
+        display: flex;
+        align-items: center;
+        width: 200px;
+        justify-content: space-between;
+        font-size: 20px;
+      }
+    }
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      width: 800px;
+      margin-bottom: 20px;
+    };
+
+    &__gameScreen {
+      width: 700px;
+      height: 700px;
+      border: 1px solid black;
+      background: lightgray;
+      position: relative;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &__handleItem {
+        background: white;
+        border: none;
+        cursor: pointer;
+        transition: .5s ease-in background-color;
+        position: absolute;
+        z-index: 100;
+        border-radius: 50%;
+      }
+
+      &__handleItem-small {
+        @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
+        background: yellow;
+        height: 20px;
+        width: 20px;
+      }
+
+      &__handleItem-middle {
+        @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
+        background: #82d082;
+        height: 35px;
+        width: 35px;
+      }
+
+      &__handleItem-big {
+        @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
+        background: #a7a7bf;
+        height: 50px;
+        width: 50px;
+      }
+    }
+  }
+}
