@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {setGameResult} from "../../api";
 
 import './style.scss';
 
@@ -35,6 +36,8 @@ const SevenGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30 ) {
       alert(`Игра окончена, вы сделали ${userHit} правильных кликов`)
+      setGameResult('game number 7', userHit)
+
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -58,7 +61,7 @@ const SevenGameScreen = () => {
       id !== index && arr
     ))
   };
-console.log(timeCount, clickDelay);
+
   const addScoreAndDelete = (event, index) => {
     setUserHit(value => value +1);
     event.stopPropagation();
@@ -85,15 +88,13 @@ console.log(timeCount, clickDelay);
           style={!isGameNow ? {pointerEvents: "none"} : null}
           className="sevenGameScreen__gameWrapper__gameScreen">
           {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) =>{
-            // console.log( clickDelay >= crts[2])
-            // console.log(clickDelay);
          return (
           <div
             key={index}
             onClick={
               (clickDelay >= crts[2] && clickDelay <= crts[2] + 4) ?
                 event => addScoreAndDelete(event, index):
-                () => { console.log('Кнопка не активна')}}
+                () => {}}
             className="sevenGameScreen__gameWrapper__gameScreen__handleItem"
             style={
               {

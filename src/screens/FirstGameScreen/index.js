@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { setGameResult } from '../../api';
 
 import './style.scss';
 
@@ -33,6 +34,7 @@ const NinthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userHit * 50} очков`)
+      setGameResult('game number 1', userHit * 50)
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);

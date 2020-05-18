@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 import './style.scss';
+import {setGameResult} from "../../api";
 
 const EighthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
@@ -33,6 +34,8 @@ const EighthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
+      setGameResult('game number 8', userHit)
+
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -99,7 +102,6 @@ const EighthGameScreen = () => {
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           onClick={handleMissingClick}
-          // onClick={() => setUserMissed(value => value +1 )
           className="eighthGameScreen__gameWrapper__gameScreen">
           {coordinatesArray.length > 0 &&
           <div

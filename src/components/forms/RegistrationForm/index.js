@@ -4,13 +4,23 @@ import { NavLink } from 'react-router-dom';
 import BasicInput from "../../inputs/BasicInput";
 import SubmitButton from "../../SubmitButton";
 import routes from "../../../consts/routes";
+import { createNewUser } from '../../../api';
+import {history} from "../../../configureStore";
 
 import './style.scss';
 
 const RegistrationForm = () => {
 
-    const onSubmit = (value) => {
-        console.log(value)
+    const onSubmit = (userData) => {
+      createNewUser(userData).then(data => {
+        console.log(data);
+        if (data.code === 400) {
+          alert(data.message)
+        } else {
+          localStorage.setItem('accessToken', data?.tokens?.access?.token);
+          history.push(routes.getMainScreen())
+        }
+      });
     }
 
     return (
@@ -31,13 +41,21 @@ const RegistrationForm = () => {
                   <form
                     onSubmit={handleSubmit}>
                       <Field
-                        name='userName'
+                        name='name'
                         component={BasicInput}
                         placeholder='enter login'
                         id='login'
                         {...input}
                         label=' Введите логин'
                       />
+                    <Field
+                      name='email'
+                      component={BasicInput}
+                      placeholder='enter email'
+                      id='email'
+                      {...input}
+                      label=' Введите почту'
+                    />
                       <Field
                         name='password'
                         component={BasicInput}
@@ -56,7 +74,7 @@ const RegistrationForm = () => {
                         className='registrationForm__registrationBar__link'
                         to={routes.getAuthorization()
                         }>
-                          Еще нет аккаунта?
+                        Вы уже зарегестрированы?
                       </NavLink>
                   </div>
               </div>

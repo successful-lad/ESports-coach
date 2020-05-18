@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import {setGameResult} from "../../api";
 
 import './style.scss';
 
@@ -25,6 +26,7 @@ const FifthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userHit} очков`)
+      setGameResult('game number 5', userHit)
       setItemDelay(0);
       setTimeCount(0);
       setUserHit(0);

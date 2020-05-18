@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { setGameResult } from "../../api";
 
 import './style.scss';
 
@@ -33,6 +34,7 @@ const SecondGameScreen = () => {
 
   useEffect(() => {
     if(timeCount === 30) {
+      setGameResult('game number 2', userScore )
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -100,7 +102,6 @@ const SecondGameScreen = () => {
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           onClick={handleMissingClick}
-          // onClick={() => setUserMissed(value => value +1 )
           className="secondGameScreen__gameWrapper__gameScreen">
           {coordinatesArray.length > 0 &&
               <div

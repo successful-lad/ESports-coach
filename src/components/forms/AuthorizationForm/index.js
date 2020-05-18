@@ -5,14 +5,25 @@ import BasicInput from "../../inputs/BasicInput";
 import SubmitButton from "../../SubmitButton";
 import routes from "../../../consts/routes";
 import { history } from '../../../configureStore'
+import { logIn } from '../../../api';
 
 import './style.scss';
-
+// {
+//   email: "fake@example.com",
+//     password: "password1"
+// }
 const AuthorizationForm = () => {
 
-    const onSubmit = (value) => {
-        console.log(value)
-        history.push(routes.getMainScreen())
+    const onSubmit = (userData) => {
+        logIn(userData).then(data => {
+          console.log(data)
+          if (data.code === 401 || data.code === 400) {
+            alert(data.message)
+          } else {
+            localStorage.setItem('accessToken', data?.tokens?.access?.token);
+            history.push(routes.getMainScreen())
+          }
+        });
     }
 
     return (
@@ -33,12 +44,12 @@ const AuthorizationForm = () => {
                   <form
                     onSubmit={handleSubmit}>
                     <Field
-                      name='userName'
+                      name='email'
                       component={BasicInput}
-                      placeholder='enter login'
-                      id='login'
+                      placeholder='enter email'
+                      id='email'
                       {...input}
-                      label=' Введите логин'
+                      label=' Введите почту'
                     />
                     <Field
                       name='password'
@@ -58,7 +69,7 @@ const AuthorizationForm = () => {
                       className='authorizationForm__registrationBar__link'
                       to={routes.getRegistration()
                       }>
-                      Вы уже зарегестрированы?
+                      Еще нет аккаунта?
                     </NavLink>
                   </div>
                 </div>

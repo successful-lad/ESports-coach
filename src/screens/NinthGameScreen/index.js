@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import './style.scss';
+import {setGameResult} from "../../api";
 
 const NinthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
@@ -31,6 +32,8 @@ const NinthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 90) {
       alert(`Игра окончена, вы сбили ${userHit} из 180 шаров`)
+      setGameResult('game number 9', userHit)
+
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -45,7 +48,7 @@ const NinthGameScreen = () => {
       id !== index
   ))
   };
-console.log(timeCount);
+
   return (
     <div className='ninthGameScreen'>
       <div className='ninthGameScreen__gameWrapper'>

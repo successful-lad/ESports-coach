@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import {setGameResult} from "../../api";
 import triangleIcon from '../../assets/img/triangle.svg';
 
 import './style.scss';
@@ -35,6 +36,7 @@ const FourthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
+      setGameResult('game number 4', userScore)
       setFigureCoordinates([]);
       setTimeCount(0);
       setUserHit(0);

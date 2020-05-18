@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { setGameResult } from "../../api";
 
 import './style.scss';
 
@@ -10,8 +11,6 @@ const ThirdGameScreen = () => {
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
   const [userScore, setUserScore] = useState(0);
-  console.log(isGameNow)
-  /* Todo Спросить Илью Про useCallback*/
 
   const onRandomShowBlock = useCallback(() => {
 
@@ -35,6 +34,7 @@ const ThirdGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userScore * 50} очков`)
+      setGameResult('game number 3', userScore * 50)
       setCircleCoordinates([]);
       setTimeCount(0);
       setUserHit(0);
