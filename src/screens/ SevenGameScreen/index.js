@@ -8,14 +8,14 @@ const SevenGameScreen = () => {
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [clickDelay, setClickDelay] = useState(0)
+  const [clickDelay, setClickDelay] = useState(1)
 
   useEffect(()=> {
-    if(isGameNow && coordinatesArray.length === 0) {
+    if(isGameNow && (timeCount === 0 || timeCount === 10 || timeCount === 20)) {
       setClickDelay(0);
 
-      const circlePart = Array(5)
-        .fill([], 0, 5)
+      const circlePart = Array(10)
+        .fill([], 0, 10)
         .map(() => {
           return [
             Math.floor(Math.random() * (640 - 40)) + 40,
@@ -24,15 +24,22 @@ const SevenGameScreen = () => {
           ];
         });
       setCoordinatesArray(circlePart)
-    }
 
+    }
+  }, [isGameNow, timeCount]);
+
+  useEffect(() => {
     if (isGameNow) {
       let timeCountId = setInterval(() => setTimeCount(value => value +1), 1000);
       return () => { clearInterval(timeCountId) };
     }
+    if( timeCount === 0 || timeCount === 9 || timeCount === 18) {
+      setClickDelay(0)
+    }
+  }, [clickDelay, isGameNow, timeCount])
 
-  }, [isGameNow, timeCount, coordinatesArray, clickDelay]);
-//Todo эту игру доделать, там с задержкой до нажатия по кнопкам ещ
+  // console.log(`timecount ${timeCount}`, `delay ${clickDelay}`)
+
   useEffect(() => {
     if(timeCount === 30 ) {
       alert(`Игра окончена, вы сделали ${userHit} правильных кликов`)
@@ -47,14 +54,15 @@ const SevenGameScreen = () => {
   }, [timeCount, userHit])
 
   useEffect(() =>{
-      //todo пересмотерть второе условие, оно захардкожено
-      if (isGameNow && clickDelay < 10) {
-        const delayId = setInterval(() => setClickDelay(value => value + 1), 1000)
-        return () => {
-          clearInterval(delayId)
-        }
+    if (isGameNow && clickDelay < 10) {
+      const delayId = setInterval(() => setClickDelay(value => value + 1), 1000)
+      return () => {
+        clearInterval(delayId)
       }
-    }, [clickDelay, isGameNow, coordinatesArray])
+    } else  {
+      setClickDelay(0)
+    }
+  }, [clickDelay, isGameNow, coordinatesArray])
 
   const deleteBlock = (id) => {
     setCoordinatesArray(coordinatesArray.filter((arr, index) =>
@@ -87,25 +95,26 @@ const SevenGameScreen = () => {
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           className="sevenGameScreen__gameWrapper__gameScreen">
-          {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) =>{
-         return (
-          <div
-            key={index}
-            onClick={
-              (clickDelay >= crts[2] && clickDelay <= crts[2] + 4) ?
-                event => addScoreAndDelete(event, index):
-                () => {}}
-            className="sevenGameScreen__gameWrapper__gameScreen__handleItem"
-            style={
-              {
-                top: crts[0],
-                left: crts[1],
-                animationDelay: `${crts[2]}s`,
-              }
-            }
-          />
+          {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) => {
+            console.log(`click delay ${clickDelay}`, `elem time ${crts[2]}`)
+            return (
+              <div
+                key={index}
+                onClick={
+                  (clickDelay >= crts[2] || clickDelay <= crts[2] + 4) ?
+                    event => addScoreAndDelete(event, index):
+                    () => {}}
+                className="sevenGameScreen__gameWrapper__gameScreen__handleItem"
+                style={
+                  {
+                    top: crts[0],
+                    left: crts[1],
+                    animationDelay: `${crts[2]}s`,
+                  }
+                }
+              />
+            )}
           )}
-         )}
         </div>
       </div>
     </div>

@@ -1,30 +1,35 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {setGameResult} from "../../api";
+import { setGameResult } from "../../api";
 
 import './style.scss';
 
 const FifthGameScreen = () => {
   const [itemDelay, setItemDelay] = useState(0);
+  const [arrToRender, setArrToRender] = useState([])
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [clickDelay, setClickDelay] = useState(0)
+  console.log()
   const onRandomShowBlock = useCallback(() => {
+
+    setArrToRender(() => [Array(1).fill(0, 0,1)])
 
     const delay = Math.floor(Math.random() * (3 - 1)) + 1;
     setItemDelay(delay);
     setTimeCount(value => value + 1);
+
   }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 30) {
-      const randomFuncId = setInterval(() => onRandomShowBlock(), 5000);
+    if (isGameNow && timeCount < 15) {
+      const randomFuncId = setInterval(() => onRandomShowBlock(), 3000);
       return () => { clearInterval(randomFuncId)}
     }
   }, [timeCount, isGameNow, onRandomShowBlock]);
 
   useEffect(() => {
-    if(timeCount === 30) {
+    if(timeCount === 15) {
       alert(`Игра окончена, ваш результат ${userHit} очков`)
       setGameResult('game number 5', userHit)
       setItemDelay(0);
@@ -33,7 +38,6 @@ const FifthGameScreen = () => {
       setIsGameNow(false);
     }
   }, [timeCount, userHit])
-  // тут с секундами полная мракобесь, и снизу где onClick
 
   useEffect(() =>{
     if (isGameNow && clickDelay < itemDelay + 2) {
@@ -48,6 +52,7 @@ const FifthGameScreen = () => {
     setUserHit(value => value +1);
     event.stopPropagation();
     setItemDelay(0);
+    setArrToRender([])
   };
 
   return (
@@ -67,19 +72,22 @@ const FifthGameScreen = () => {
           </div>
         </div>
         <div
-          style={!isGameNow ? {pointerEvents: "none"} : null}
+          style={!isGameNow ? { pointerEvents: "none" } : null}
           className="fifthGameScreen__gameWrapper__gameScreen">
-          {itemDelay > 0 ?
+          {itemDelay > 0 && arrToRender.map((_, index) =>
           <div
+            key={index}
             onClick={
               clickDelay >= itemDelay ?
                 event => addScoreAndDelete(event):
                 () => { alert('Кнопка не активна')}}
               className="fifthGameScreen__gameWrapper__gameScreen__handleItem"
-            style={{animationDelay: `${itemDelay}s`}}
+            style={{
+              animationDelay: `${itemDelay}s`,
+              animationName: 'changeBgColor'
+            }}
           />
-          : null
-          }
+            )}
         </div>
       </div>
     </div>
