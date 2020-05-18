@@ -17,7 +17,7 @@ const SixthGameScreen = () => {
     setCoordinatesArray([topCoordinates, leftCoordinates, delay]);
     setTimeCount(value => value + 1);
   }, []);
-
+  //todo поправить окончание игры
   useEffect(() => {
     if (isGameNow && timeCount < 30) {
       const randomFuncId = setInterval(() => onRandomShowBlock(), 5000);

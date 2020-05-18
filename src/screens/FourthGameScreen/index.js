@@ -23,7 +23,7 @@ const FourthGameScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 30) {
+    if (isGameNow && timeCount < 32) {
       let newTimeOut = 2000;
       if (gameDifficulty) {
         newTimeOut = 2000 - gameDifficulty * 15;
@@ -34,10 +34,11 @@ const FourthGameScreen = () => {
   }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
 
   useEffect(() => {
-    if(timeCount === 30) {
+    if(timeCount === 32) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setGameResult('game number 4', userScore)
       setFigureCoordinates([]);
+      setUserScore(0);
       setTimeCount(0);
       setUserHit(0);
       setUserMissed(0);

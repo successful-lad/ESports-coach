@@ -21,7 +21,7 @@ const ThirdGameScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 30) {
+    if (isGameNow && timeCount < 32) {
       let newTimeOut = 2000;
       if (gameDifficulty) {
         newTimeOut = 2000 - gameDifficulty * 15;
@@ -32,11 +32,12 @@ const ThirdGameScreen = () => {
   }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
 
   useEffect(() => {
-    if(timeCount === 30) {
-      alert(`Игра окончена, ваш результат ${userScore * 50} очков`)
-      setGameResult('game number 3', userScore * 50)
+    if(timeCount === 32) {
+      alert(`Игра окончена, ваш результат ${userScore} очков`)
+      setGameResult('game number 3', userScore)
       setCircleCoordinates([]);
       setTimeCount(0);
+      setUserScore(userScore);
       setUserHit(0);
       setUserMissed(0);
       setIsGameNow(false);

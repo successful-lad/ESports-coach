@@ -14,8 +14,8 @@ const EighthGameScreen = () => {
 
   const onRandomShowBlock = useCallback(() => {
 
-    const topCoordinates = Math.floor(Math.random() * (650 - 40)) + 40
-    const leftCoordinates = Math.floor(Math.random() * (650 - 40)) + 40;
+    const topCoordinates = Math.floor(Math.random() * (630 - 40)) + 40
+    const leftCoordinates = Math.floor(Math.random() * (630 - 40)) + 40;
     setCoordinatesArray([topCoordinates, leftCoordinates]);
     setTimeCount(value => value + 1);
   }, []);
@@ -34,8 +34,8 @@ const EighthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 30) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 8', userHit)
-
+      setGameResult('game number 8', userScore)
+      setUserScore(0);
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);

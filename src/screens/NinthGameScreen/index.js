@@ -10,7 +10,7 @@ const NinthGameScreen = () => {
   const [isGameNow, setIsGameNow] = useState(false);
 
   useEffect(()=> {
-    if(isGameNow && (timeCount === 0 || timeCount === 30)) {
+    if(isGameNow && (timeCount === 0 || timeCount === 30 || timeCount === 60)) {
       const circlePart = Array(60)
         .fill([], 0, 60)
         .map((item, index) => {

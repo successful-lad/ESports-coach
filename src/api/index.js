@@ -32,8 +32,19 @@ const setGameResult = async (gameNumber, gameResult) => {
   return await fetchResponse.json();
 };
 
+  const getUserScore = async (callback) => {
+   let result = await fetch("http://localhost:3000/v1/stats", {
+     headers: {
+       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+     },
+   });
+   let body = await result.json();
+   callback(body.gameResults);
+ };
+
  export {
    createNewUser,
    logIn,
-   setGameResult
+   setGameResult,
+   getUserScore,
  }

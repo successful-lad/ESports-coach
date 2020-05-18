@@ -22,7 +22,7 @@ const SecondGameScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 30) {
+    if (isGameNow && timeCount < 32) {
       let newTimeOut = 2000;
       if (gameDifficulty) {
         newTimeOut = 2000 - gameDifficulty * 15;
@@ -33,11 +33,12 @@ const SecondGameScreen = () => {
   }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
 
   useEffect(() => {
-    if(timeCount === 30) {
+    if(timeCount === 32) {
       setGameResult('game number 2', userScore )
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
+      setUserScore(0);
       setUserHit(0);
       setUserMissed(0);
       setIsGameNow(false);
