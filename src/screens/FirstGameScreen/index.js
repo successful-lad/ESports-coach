@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { setGameResult } from '../../api';
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
 import './style.scss';
 
@@ -66,6 +68,10 @@ const NinthGameScreen = () => {
     deleteBlock(index);
   };
 
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
+
   return (
     <div className='firstGameScreen'>
       <div className='firstGameScreen__gameWrapper'>
@@ -87,6 +93,12 @@ const NinthGameScreen = () => {
             />
             100
           </div>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
+          </button>
         </div>
         <div className='firstGameScreen__gameWrapper__title'>
           <div>

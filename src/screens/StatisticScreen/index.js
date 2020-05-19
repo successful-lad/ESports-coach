@@ -8,7 +8,9 @@ const StatisticScreen = () => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    getUserScore(setUserData);
+    if(localStorage.getItem('accessToken') !== null) {
+      getUserScore(setUserData);
+    }
   }, []);
 
   const firstGameData = useMemo(() =>{
@@ -56,7 +58,6 @@ const StatisticScreen = () => {
       userData.filter(item => item.game === 'game number 9').map(item => item.result)
     )
   }, [userData])
-
   return (
     <div className='statisticScreen'>
       <div className='statisticScreen__sectionTitle'>

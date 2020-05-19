@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { setGameResult } from "../../api";
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
 import './style.scss';
 
@@ -57,6 +59,10 @@ const SixthGameScreen = () => {
     setCoordinatesArray([]);
   };
 
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
+
   return (
     <div className='sixthGameScreen'>
       <div className='sixthGameScreen__gameWrapper'>
@@ -66,6 +72,12 @@ const SixthGameScreen = () => {
             onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
           </button>
         </div>
         <div className='sixthGameScreen__gameWrapper__title'>

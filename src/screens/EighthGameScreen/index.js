@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { setGameResult } from "../../api";
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
 import './style.scss';
-import {setGameResult} from "../../api";
 
 const EighthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
@@ -68,6 +70,9 @@ const EighthGameScreen = () => {
       setUserScore(0)
     }
   };
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
 
   return (
     <div className='eighthGameScreen'>
@@ -90,6 +95,12 @@ const EighthGameScreen = () => {
             />
             100
           </div>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
+          </button>
         </div>
         <div className='eighthGameScreen__gameWrapper__title'>
           <div>

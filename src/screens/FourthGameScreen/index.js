@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {setGameResult} from "../../api";
-import triangleIcon from '../../assets/img/triangle.svg';
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
+import triangleIcon from '../../assets/img/triangle.svg';
 import './style.scss';
 
 const FourthGameScreen = () => {
@@ -68,6 +70,10 @@ const FourthGameScreen = () => {
     setFigureCoordinates([]);
   };
 
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
+
   return (
     <div className='fourthGameScreen'>
       <div className='fourthGameScreen__gameWrapper'>
@@ -89,6 +95,12 @@ const FourthGameScreen = () => {
             />
             100
           </div>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
+          </button>
         </div>
         <div className='fourthGameScreen__gameWrapper__title'>
           <div>

@@ -18,6 +18,7 @@ import {
     SixthGameScreen,
     SevenGameScreen,
 } from '../src/screens';
+import { GlobalHeader } from '../src/components';
 
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
@@ -25,6 +26,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <React.StrictMode>
         <Router history={ history }>
+            <Route component={GlobalHeader} />
             <Switch>
                 <Route path={routes.getGameScreen(9)} component={NinthGameScreen} />
                 <Route path={routes.getGameScreen(8)} component={EighthGameScreen} />

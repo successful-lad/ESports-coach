@@ -16,7 +16,6 @@ const AuthorizationForm = () => {
 
     const onSubmit = (userData) => {
         logIn(userData).then(data => {
-          console.log(data)
           if (data.code === 401 || data.code === 400) {
             alert(data.message)
           } else {
@@ -58,6 +57,7 @@ const AuthorizationForm = () => {
                       id='password'
                       placeholder='enter password'
                       label='Введите пароль'
+                      type='password'
                     />
                     <SubmitButton
                       text='Войти'

@@ -1,0 +1,28 @@
+.globalHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    width: 1200px;
+    display: flex;
+    justify-content: flex-end;
+
+    &__button {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 1px solid black;
+      margin: 10px 0;
+      transition: background-color 0.5s ease-in,
+                  color 0.5s ease-in;
+      background: white;
+      font-size: 14px;
+
+      &:hover {
+        background: black;
+        color: white;
+      }
+    }
+  }
+}

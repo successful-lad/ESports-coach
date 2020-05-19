@@ -6,7 +6,7 @@ const BasicInput = ({
                         placeholder,
                         input,
                         id,
-                        label
+                        label,
                     }) => {
     return (
       /*Todo добавить валидацию на поля ввода форм*/
@@ -19,11 +19,11 @@ const BasicInput = ({
                 {label}
             </label>
             <input
-                placeholder={placeholder}
-                type="text"
-                id={id}
-                className='basicInput__field'
-                {...input}
+              placeholder={placeholder}
+              type="text"
+              id={id}
+              className='basicInput__field'
+              {...input}
             />
         </div>
     )

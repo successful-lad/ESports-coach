@@ -71,7 +71,7 @@
         transition: .5s ease-in background-color;
         position: absolute;
         z-index: 100;
-        animation: 2s linear 0s infinite alternate scale-item;
+        animation: 1s linear 0s infinite alternate scale-item;
 
         &:hover {
           background: gray;
@@ -82,5 +82,5 @@
 }
 
 @keyframes scale-item {
-  from { transform: scale(1) } to {transform: scale(1.5)}
+  from { transform: scale(1) } to {transform: scale(0.6)}
 }

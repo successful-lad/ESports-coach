@@ -13,7 +13,7 @@ const RegistrationForm = () => {
 
     const onSubmit = (userData) => {
       createNewUser(userData).then(data => {
-        console.log(data);
+
         if (data.code === 400) {
           alert(data.message)
         } else {
@@ -28,55 +28,56 @@ const RegistrationForm = () => {
         onSubmit={onSubmit}
         render={
             ({
-                 handleSubmit,
-                 input,
-                 submitting
+               handleSubmit,
+               input,
+               submitting
              }) => (
               <div
                 className='registrationForm'
               >
-                  <div className='registrationForm__title'>
-                      Форма регистрации
-                  </div>
-                  <form
-                    onSubmit={handleSubmit}>
-                      <Field
-                        name='name'
-                        component={BasicInput}
-                        placeholder='enter login'
-                        id='login'
-                        {...input}
-                        label=' Введите логин'
-                      />
-                    <Field
-                      name='email'
-                      component={BasicInput}
-                      placeholder='enter email'
-                      id='email'
-                      {...input}
-                      label=' Введите почту'
-                    />
-                      <Field
-                        name='password'
-                        component={BasicInput}
-                        {...input}
-                        id='password'
-                        placeholder='enter password'
-                        label='Введите пароль'
-                      />
-                      <SubmitButton
-                        text='Войти'
-                        isDisabled={submitting}
-                      />
-                  </form>
-                  <div className='registrationForm__registrationBar'>
-                      <NavLink
-                        className='registrationForm__registrationBar__link'
-                        to={routes.getAuthorization()
-                        }>
-                        Вы уже зарегестрированы?
-                      </NavLink>
-                  </div>
+                <div className='registrationForm__title'>
+                  Форма регистрации
+                </div>
+                <form
+                  onSubmit={handleSubmit}>
+                  <Field
+                    name='name'
+                    component={BasicInput}
+                    placeholder='enter login'
+                    id='login'
+                    {...input}
+                    label=' Введите логин'
+                  />
+                  <Field
+                    name='email'
+                    component={BasicInput}
+                    placeholder='enter email'
+                    id='email'
+                    {...input}
+                    label=' Введите почту'
+                  />
+                  <Field
+                    name='password'
+                    component={BasicInput}
+                    {...input}
+                    id='password'
+                    placeholder='enter password'
+                    label='Введите пароль'
+                    type='password'
+                  />
+                  <SubmitButton
+                    text='Войти'
+                    isDisabled={submitting}
+                  />
+                </form>
+                <div className='registrationForm__registrationBar'>
+                  <NavLink
+                    className='registrationForm__registrationBar__link'
+                    to={routes.getAuthorization()
+                    }>
+                    Вы уже зарегестрированы?
+                  </NavLink>
+                </div>
               </div>
             )} />
     )

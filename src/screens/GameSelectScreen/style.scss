@@ -1,32 +1,37 @@
 .gameSelectScreen {
+  justify-content: center;
   min-width: 1200px;
   display: flex;
-  flex-direction: column;
   border-radius: 10px;
   border: 1px solid black;
-  align-items: center;
   min-height: 400px;
 
-  &__sectionName {
-    margin: 20px 0;
-  };
-
-  &__wrapper {
+  &__section {
+    margin: 0 100px;
     display: flex;
-    width: 50%;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
 
-    &__item {
-      cursor: pointer;
-      padding: 10px 20px;
-      border: 1px solid black;
-      margin: 10px 0;
-      transition: background-color 0.5s ease-in,
-      color 0.5s ease-in;
+    &__name {
+      margin-bottom: 20px;
+    };
 
-      &:hover {
-        background: black;
-        color: white;
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+
+      &__item {
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 1px solid black;
+        margin: 10px 0;
+        transition: background-color 0.5s ease-in,
+        color 0.5s ease-in;
+
+        &:hover {
+          background: black;
+          color: white;
+        }
       }
     }
   }

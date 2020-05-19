@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { setGameResult } from "../../api";
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
 import './style.scss';
 
@@ -62,6 +64,10 @@ const ThirdGameScreen = () => {
     setCircleCoordinates([]);
   };
 
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
+
   return (
     <div className='thirdGameScreen'>
       <div className='thirdGameScreen__gameWrapper'>
@@ -83,6 +89,12 @@ const ThirdGameScreen = () => {
             />
             100
           </div>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
+          </button>
         </div>
         <div className='thirdGameScreen__gameWrapper__title'>
           <div>

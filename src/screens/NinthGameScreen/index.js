@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { setGameResult } from "../../api";
+import { history } from "../../configureStore";
+import routes from "../../consts/routes";
 
 import './style.scss';
-import {setGameResult} from "../../api";
 
 const NinthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
@@ -49,6 +51,9 @@ const NinthGameScreen = () => {
   ))
   };
 
+  const goToMenu = () => {
+    history.push(routes.getSelectGameScreen());
+  };
   return (
     <div className='ninthGameScreen'>
       <div className='ninthGameScreen__gameWrapper'>
@@ -58,6 +63,12 @@ const NinthGameScreen = () => {
             onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+          <button
+            onClick={goToMenu}
+            className='sevenGameScreen__gameWrapper__settingBar__button'
+          >
+            Выйти в меню
           </button>
         </div>
         <div className='ninthGameScreen__gameWrapper__title'>
