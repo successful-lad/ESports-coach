@@ -1,4 +1,3 @@
-import MainScreen from "./MainScreen";
 import AuthorizationScreen from "./AuthorizationScreen";
 import RegistrationScreen from "./RegistrationScreen";
 import FirstGameScreen from "./FirstGameScreen";
@@ -14,7 +13,6 @@ import SixthGameScreen from "./SixthGameScreen";
 import SevenGameScreen from "./ SevenGameScreen";
 
 export {
-    MainScreen,
     AuthorizationScreen,
     RegistrationScreen,
     FirstGameScreen,

@@ -8,10 +8,7 @@ import { history } from '../../../configureStore'
 import { logIn } from '../../../api';
 
 import './style.scss';
-// {
-//   email: "fake@example.com",
-//     password: "password1"
-// }
+
 const AuthorizationForm = () => {
 
     const onSubmit = (userData) => {
@@ -20,7 +17,7 @@ const AuthorizationForm = () => {
             alert(data.message)
           } else {
             localStorage.setItem('accessToken', data?.tokens?.access?.token);
-            history.push(routes.getMainScreen())
+            history.push(routes.getSelectGameScreen())
           }
         });
     }

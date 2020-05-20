@@ -12,7 +12,6 @@ const FifthGameScreen = () => {
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [clickDelay, setClickDelay] = useState(0)
-  console.log()
   const onRandomShowBlock = useCallback(() => {
 
     setArrToRender(() => [Array(1).fill(0, 0,1)])

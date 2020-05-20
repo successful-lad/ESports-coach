@@ -3,7 +3,6 @@ import { Switch, Route, Router } from 'react-router';
 import routes from "./consts/routes";
 import { history } from "./configureStore";
 import {
-    MainScreen,
     RegistrationScreen,
     AuthorizationScreen,
     StatisticScreen,
@@ -18,7 +17,7 @@ import {
     SixthGameScreen,
     SevenGameScreen,
 } from '../src/screens';
-import { GlobalHeader } from '../src/components';
+import { GlobalHeader, SideBar } from '../src/components';
 
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
@@ -26,6 +25,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <React.StrictMode>
         <Router history={ history }>
+            <Route component={SideBar} />
             <Route component={GlobalHeader} />
             <Switch>
                 <Route path={routes.getGameScreen(9)} component={NinthGameScreen} />
@@ -39,7 +39,6 @@ ReactDOM.render(
                 <Route path={routes.getGameScreen(1)} component={FirstGameScreen} />
                 <Route path={routes.getSelectGameScreen()} component={GameSelectScreen} />
                 <Route path={routes.getStatisticsScreen()} component={StatisticScreen} />
-                <Route path={routes.getMainScreen()} component={MainScreen} />
                 <Route path={routes.getRegistration()} component={RegistrationScreen} />
                 <Route path={routes.getAuthorization()} component={AuthorizationScreen} />
             </Switch>

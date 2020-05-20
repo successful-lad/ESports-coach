@@ -18,7 +18,7 @@ const RegistrationForm = () => {
           alert(data.message)
         } else {
           localStorage.setItem('accessToken', data?.tokens?.access?.token);
-          history.push(routes.getMainScreen())
+          history.push(routes.getSelectGameScreen())
         }
       });
     }
