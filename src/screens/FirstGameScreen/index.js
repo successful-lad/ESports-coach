@@ -119,7 +119,7 @@ const NinthGameScreen = () => {
             />
           </div>
           <div>набрано очков {userScore}</div>
-          <div>осталось времени </div>
+          <div>осталось времени { 120 - timeCount} </div>
           <div> процент попадания {chanceToHit}%</div>
           <button
             className='firstGameScreen__gameWrapper__optionsBar__button'
