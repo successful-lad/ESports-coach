@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import {setGameResult} from "../../api";
-import { history } from "../../configureStore";
-import routes from "../../consts/routes";
+import React, { useState, useEffect, useCallback } from "react";
+import { setGameResult } from "../../api";
 
 import triangleIcon from '../../assets/img/triangle.svg';
 import './style.scss';
@@ -10,7 +8,6 @@ const FourthGameScreen = () => {
   const [figureCoordinates, setFigureCoordinates] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
-  const [userMissed, setUserMissed] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
   const [userScore, setUserScore] = useState(0);
@@ -25,98 +22,80 @@ const FourthGameScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 32) {
-      let newTimeOut = 2000;
-      if (gameDifficulty) {
-        newTimeOut = 2000 - gameDifficulty * 15;
+
+    let newTimeOut = 2500;
+
+    if (isGameNow) {
+      if (gameDifficulty < 1000) {
+        newTimeOut = 2500
+      }
+      if (gameDifficulty >= 2500 ) {
+        newTimeOut = 500;
+      }
+      if(gameDifficulty > 1000 && gameDifficulty < 2500) {
+        newTimeOut = 3000 - gameDifficulty;
       }
       let randomFuncId = setInterval(() => onRandomShowBlock(), newTimeOut);
       return () => { clearInterval(randomFuncId)}
     }
-  }, [timeCount, isGameNow, onRandomShowBlock, gameDifficulty]);
+  }, [onRandomShowBlock, gameDifficulty, isGameNow]);
+/*todo чекнуть тут время, оно себя странно ведет */
+  useEffect(()=> {
+    if (isGameNow) {
+      let gameTimeId = setInterval(() => setTimeCount( value => value + 1), 1000);
+      return () => { clearInterval(gameTimeId)}
+    }
+  }, [isGameNow])
 
   useEffect(() => {
-    if(timeCount === 32) {
+    if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setGameResult('game number 4', userScore)
       setFigureCoordinates([]);
       setUserScore(0);
       setTimeCount(0);
       setUserHit(0);
-      setUserMissed(0);
       setIsGameNow(false);
       setGameDifficulty(0)
     }
   }, [userScore, timeCount, userHit])
 
-  const chanceToHit = useMemo(() => {
-      if(isNaN(userHit/userMissed)) {
-        return 100
-      } else  {
-        return (100 - (100 /((userHit + userMissed)) * userMissed)).toFixed(2);
+  const addScoreAndDelete = (event, scorePerHit, mark) => {
+    // eslint-disable-next-line default-case
+    switch (mark) {
+      case ('+'): {
+        setUserScore( value => value + scorePerHit)
+        break;
+      }
+      case ('-'): {
+        if (userScore >= 150) {
+          setUserScore(value => value - scorePerHit);
+        } else {
+          setUserScore(0)
+        }
       }
     }
-    ,
-    [userMissed, userHit])
 
-  const addScoreAndDelete = (event, scorePerHit, mark) => {
-    setUserScore(value => mark === '+' ? value +scorePerHit : value - scorePerHit)
-    if (mark === '+') {
-      setUserHit(value => value +1)
-    } else {
-      setUserMissed(value => value +1)
-    }
     event.stopPropagation()
     setFigureCoordinates([]);
   };
 
-  const goToMenu = () => {
-    history.push(routes.getSelectGameScreen());
+  const handleMissClick = () => {
+    if (userScore >= 100) {
+      setUserScore(value => value - 100);
+    }
   };
 
   return (
     <div className='fourthGameScreen'>
       <div className='fourthGameScreen__gameWrapper'>
-        <div className='fourthGameScreen__gameWrapper__settingBar'>
-          <button
-            className='fourthGameScreen__gameWrapper__settingBar__button'
-            onClick={() => setIsGameNow(value => !value)}
-          >
-            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
-          </button>
-          <div className='fourthGameScreen__gameWrapper__settingBar__difficultyScale'>
-            0
-            <input
-              type="range"
-              min={0}
-              max={100}
-              onChange={e => setGameDifficulty(+e.target.value)}
-              value={gameDifficulty}
-            />
-            100
-          </div>
-          <button
-            onClick={goToMenu}
-            className='sevenGameScreen__gameWrapper__settingBar__button'
-          >
-            Выйти в меню
-          </button>
-        </div>
-        <div className='fourthGameScreen__gameWrapper__title'>
-          <div>
-            Очки пользователя { userScore }
-          </div>
-          <div>
-            Шанс попадения {chanceToHit}
-          </div>
-        </div>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
-          onClick={() => setUserMissed(value => value +1 ) }
+          onClick={handleMissClick}
           className="fourthGameScreen__gameWrapper__gameScreen">
           {figureCoordinates.length > 0 && figureCoordinates[2] === 0 && (
             <div
-              onClick={event => addScoreAndDelete(event, 50, '+')}
+              onClick={event => addScoreAndDelete(event, 300, '+')}
               className="fourthGameScreen__gameWrapper__gameScreen__handleItem"
               style={{
                 top: figureCoordinates[0],
@@ -130,7 +109,7 @@ const FourthGameScreen = () => {
             <img
               alt='triangle'
               src={triangleIcon}
-              onClick={event => addScoreAndDelete(event, 20, '-')}
+              onClick={event => addScoreAndDelete(event, 150, '-')}
               className="fourthGameScreen__gameWrapper__gameScreen__handleItem"
               style={
                 {
@@ -150,6 +129,36 @@ const FourthGameScreen = () => {
             />
           )
           }
+        </div>
+        <div className='fourthGameScreen__gameWrapper__optionsBar'>
+          <div className='fourthGameScreen__gameWrapper__optionsBar__elo'>
+            <div>Рейтинг Юзера ЭЛО</div>
+            {/*todo поставить валидацию только на числа*/}
+            {/*todo добавить тултип дя обьяснения ЕЛО + может его границы */}
+            <input
+              className='fourthGameScreen__gameWrapper__optionsBar__input'
+              type="text"
+              onChange={e => setGameDifficulty(+e.target.value)}
+            />
+          </div>
+          <div>набрано очков {userScore}</div>
+          <div>осталось времени { 120 - timeCount} </div>
+          <button
+            className='fourthGameScreen__gameWrapper__optionsBar__button'
+            onClick={() => setIsGameNow(value => !value)}
+          >
+            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+        </div>
+      </div>
+      <div className='fourthGameScreen__gameDescription'>
+        <div className='fourthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='fourthGameScreen__gameDescription__aboutGame'>
+          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
+          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
+          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>
