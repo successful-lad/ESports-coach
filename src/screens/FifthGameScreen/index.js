@@ -1,44 +1,48 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { setGameResult } from "../../api";
-import { history } from "../../configureStore";
-import routes from "../../consts/routes";
 
 import './style.scss';
 
 const FifthGameScreen = () => {
   const [itemDelay, setItemDelay] = useState(0);
-  const [arrToRender, setArrToRender] = useState([])
-  const [timeCount, setTimeCount] = useState(0);
-  const [userHit, setUserHit] = useState(0);
+  const [arrToRender, setArrToRender] = useState([]) //с этого дерьма буду брать сам елемент
+  // const [timeCount, setTimeCount] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [clickDelay, setClickDelay] = useState(0)
+  const [clickDelay, setClickDelay] = useState(0) //я буду это делалать при создании елемента
+  const [hitResult, setHitResult] = useState([]); //нужно
+  const [averageAim, setAverageAim] = useState(0) //нужно
+  const [defaultTime, setDefaultTime] = useState(0);
+
   const onRandomShowBlock = useCallback(() => {
-
-    setArrToRender(() => [Array(1).fill(0, 0,1)])
-
-    const delay = Math.floor(Math.random() * (3 - 1)) + 1;
-    setItemDelay(delay);
-    setTimeCount(value => value + 1);
-
-  }, []);
+    if (isGameNow) {
+      setArrToRender(() => [Array(1).fill(0, 0,1)])
+      const delay = Math.floor(Math.random() * (3 - 1)) + 1;
+      setItemDelay(delay);
+      setDefaultTime(Date.now());
+    }
+  }, [isGameNow]);
 
   useEffect(() => {
-    if (isGameNow && timeCount < 15) {
+    if (isGameNow && hitResult.length < 11 && arrToRender.length === 0) {
       const randomFuncId = setInterval(() => onRandomShowBlock(), 3000);
       return () => { clearInterval(randomFuncId)}
     }
-  }, [timeCount, isGameNow, onRandomShowBlock]);
+  }, [hitResult, isGameNow, onRandomShowBlock, arrToRender.length]);
+
+  useEffect(() =>{
+    if (hitResult.length === 10) {
+      setAverageAim(hitResult.reduce((a, b) => a + b) / 10);
+    }
+  }, [hitResult])
 
   useEffect(() => {
-    if(timeCount === 15) {
-      alert(`Игра окончена, ваш результат ${userHit} очков`)
-      setGameResult('game number 5', userHit)
+    if (hitResult.length === 10) {
+      alert(`Игра окончена, ваш средний Aim ${averageAim}`)
+      setGameResult('game number 5', averageAim)
       setItemDelay(0);
-      setTimeCount(0);
-      setUserHit(0);
       setIsGameNow(false);
     }
-  }, [timeCount, userHit])
+  }, [averageAim,hitResult])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < itemDelay + 2) {
@@ -48,40 +52,26 @@ const FifthGameScreen = () => {
       setClickDelay(0)
     }
 
-  }, [clickDelay, isGameNow, itemDelay])
+  }, [clickDelay, isGameNow, itemDelay]);
+
   const addScoreAndDelete = (event) => {
-    setUserHit(value => value +1);
+    let timeDifference = (((Date.now() - defaultTime) / 1000) - 1).toFixed(2)
+    setHitResult([...hitResult, timeDifference]);
     event.stopPropagation();
     setItemDelay(0);
     setArrToRender([])
   };
 
-  const goToMenu = () => {
-    history.push(routes.getSelectGameScreen());
+  const handleMissClick = () => {
+    setHitResult([...hitResult, [1]]); setArrToRender([])
   };
 
+/* todo что бы рендерился новый итем,
+  возможно нужно не по самому масиву идти а проходится по его елементам, и очищать его
+ */
   return (
     <div className='fifthGameScreen'>
       <div className='fifthGameScreen__gameWrapper'>
-        <div className='fifthGameScreen__gameWrapper__settingBar'>
-          <button
-            className='fifthGameScreen__gameWrapper__settingBar__button'
-            onClick={() => setIsGameNow(value => !value)}
-          >
-            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
-          </button>
-          <button
-            onClick={goToMenu}
-            className='sevenGameScreen__gameWrapper__settingBar__button'
-          >
-            Выйти в меню
-          </button>
-        </div>
-        <div className='fifthGameScreen__gameWrapper__title'>
-          <div>
-            Правильных кликов { userHit }
-          </div>
-        </div>
         <div
           style={!isGameNow ? { pointerEvents: "none" } : null}
           className="fifthGameScreen__gameWrapper__gameScreen">
@@ -90,8 +80,8 @@ const FifthGameScreen = () => {
             key={index}
             onClick={
               clickDelay >= itemDelay ?
-                event => addScoreAndDelete(event):
-                () => { alert('Кнопка не активна')}}
+                event => addScoreAndDelete(event, index):
+                handleMissClick}
               className="fifthGameScreen__gameWrapper__gameScreen__handleItem"
             style={{
               animationDelay: `${itemDelay}s`,
@@ -99,6 +89,38 @@ const FifthGameScreen = () => {
             }}
           />
             )}
+        </div>
+        <div className='fifthGameScreen__gameWrapper__optionsBar'>
+          <div>
+            { hitResult.length < 10 && `Осталось попыток ${10 - hitResult.length}`}
+          </div>
+          <button
+            className='fifthGameScreen__gameWrapper__optionsBar__button'
+            onClick={() => setIsGameNow(value => !value)}
+          >
+            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+          <div>средний шанс</div>
+          <div
+            className='fifthGameScreen__gameWrapper__optionsBar__table'
+          >  {hitResult.map((item, index) =>
+            <div
+              className='fifthGameScreen__gameWrapper__optionsBar__item'
+            >
+              {`Aim ${index + 1} ${item}sec`}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+      <div className='fifthGameScreen__gameDescription'>
+        <div className='fifthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='fifthGameScreen__gameDescription__aboutGame'>
+          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
+          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
+          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>
