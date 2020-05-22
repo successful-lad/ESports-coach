@@ -18,7 +18,6 @@ const FourthGameScreen = () => {
     const leftCoordinates = Math.floor(Math.random() * (650 - 40)) + 40;
     const whichFigures = Math.floor(Math.random() * 3);
     setFigureCoordinates([topCoordinates, leftCoordinates, whichFigures]);
-    setTimeCount(value => value + 1);
   }, []);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const FourthGameScreen = () => {
       return () => { clearInterval(randomFuncId)}
     }
   }, [onRandomShowBlock, gameDifficulty, isGameNow]);
-/*todo чекнуть тут время, оно себя странно ведет */
+
   useEffect(()=> {
     if (isGameNow) {
       let gameTimeId = setInterval(() => setTimeCount( value => value + 1), 1000);
