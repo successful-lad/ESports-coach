@@ -52,7 +52,7 @@ const SixthGameScreen = () => {
       setHitResult([]);
     }
   }, [averageAim, hitResult])
-
+/* todo чекнуть старую версию страницы, раньше был лучше рирендер елемента и он полностью пропадал */
   useEffect(() =>{
     if (isGameNow && clickDelay < coordinatesArray[2] + 2) {
       const delayId = setInterval(()=> setClickDelay(value => value + 1), 1000 )

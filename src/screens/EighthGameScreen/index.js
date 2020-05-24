@@ -6,24 +6,19 @@ import './style.scss';
 const EighthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
-  const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
   const [userScore, setUserScore] = useState(0)
-  // const [ userAim, setUserAim ] = useState(0)
-  // const [fTime, setFTime] = useState(0);
-  // const [timeThenHit, setTimeThenHit] = useState(0);
+  const [fTime, setFTime] = useState(0);
 
   const onRandomShowBlock = useCallback(() => {
     if (isGameNow) {
       const topCoordinates = Math.floor(Math.random() * (630 - 40)) + 40
       const leftCoordinates = Math.floor(Math.random() * (630 - 40)) + 40;
       setCoordinatesArray([topCoordinates, leftCoordinates]);
-      // setFTime(Date.now());
-      // console.log(fTime)
+      setFTime(Date.now());
     }
-    // }, [fTime, isGameNow]);
-  }, [isGameNow]);
+  }, [isGameNow, fTime]);
 
   let newTimeOut = 2500;
 
@@ -58,23 +53,36 @@ const EighthGameScreen = () => {
       setUserScore(0);
       setCoordinatesArray([]);
       setTimeCount(0);
-      setUserHit(0);
       setIsGameNow(false);
       setGameDifficulty(0)
-    }
-  }, [timeCount, userHit, userScore])
 
-  /* тут сделать нужное колличество добавлений очек*/
+    }
+  }, [timeCount, userScore])
 
   const addScoreAndDelete = (event) => {
-    // setTimeThenHit(Date.now())
-    setUserHit(value => value +1);
-    setUserScore( value => value + 50);
+    let userAim = (Date.now() - fTime) / 1000;
+
+    switch (true) {
+      case (userAim < 0.5) : {
+        setUserScore(value => value + 300);
+        break;
+      }
+      case (userAim > 0.5 && userAim < 0.8) : {
+        setUserScore(value => value + 200);
+        break;
+      }
+      case (userAim >= 0.8 && userAim < 1.3) : {
+        setUserScore(value => value + 100);
+        break;
+      }
+      default:
+        setUserScore(value => value + 50);
+        break;
+    }
+
     event.stopPropagation();
     setCoordinatesArray([]);
-    // console.log('timeThenHit',timeThenHit);
-    // console.log(`fTime ${fTime}`)
-    // console.log((fTime - timeThenHit) / 1000)
+
   };
 
   const handleMissingClick = () => {
