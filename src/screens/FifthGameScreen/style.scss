@@ -71,9 +71,8 @@
         background: white;
         border: 1px solid white;
         cursor: pointer;
-        //animation-name: changeBgColor ;
         animation-duration: 2s;
-
+        position: absolute;
       }
     }
 
@@ -147,14 +146,6 @@
   from {
     background: white;
   }
-  //
-  //25% {
-  //  background: lightyellow;
-  //}
-  //
-  //75% {
-  //  background: #e5e570;
-  //}
 
   to {
     background: yellow;

@@ -30,19 +30,24 @@ const FifthGameScreen = () => {
   }, [hitResult, isGameNow, onRandomShowBlock, arrToRender.length]);
 
   useEffect(() =>{
-    if (hitResult.length === 10) {
-      setAverageAim(hitResult.reduce((a, b) => a + b) / 10);
+    if (hitResult.length > 0 && hitResult.length <=10) {
+      setAverageAim(hitResult.reduce((a, b) => +a + +b) / hitResult.length);
     }
   }, [hitResult])
 
+  console.log(hitResult);
+console.log(averageAim);
+
   useEffect(() => {
     if (hitResult.length === 10) {
-      alert(`Игра окончена, ваш средний Aim ${averageAim}`)
-      setGameResult('game number 5', averageAim)
+      alert(`Игра окончена, ваш средний Aim ${averageAim}`);
+      setGameResult('game number 5', averageAim);
+      setIsGameNow(false)
       setItemDelay(0);
-      setIsGameNow(false);
+      setDefaultTime(0);
+      setHitResult([]);
     }
-  }, [averageAim,hitResult])
+  }, [averageAim, hitResult])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < itemDelay + 2) {
