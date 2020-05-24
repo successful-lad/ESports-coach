@@ -1,48 +1,57 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { setGameResult } from "../../api";
-import { history } from "../../configureStore";
-import routes from "../../consts/routes";
 
 import './style.scss';
 
 const SixthGameScreen = () => {
+  const [itemDelay, setItemDelay] = useState(0);
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [arrToRender, setArrToRender] = useState([])
-  const [timeCount, setTimeCount] = useState(0);
-  const [userHit, setUserHit] = useState(0);
+  // const [timeCount, setTimeCount] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [clickDelay, setClickDelay] = useState(0)
+  const [hitResult, setHitResult] = useState([]);
+  const [averageAim, setAverageAim] = useState(0);
+  const [defaultTime, setDefaultTime] = useState(0);
 
   const onRandomShowBlock = useCallback(() => {
+    if (isGameNow) {
+      setArrToRender(arrs => [...arrs, Array(1).fill(0, 0,1)])
 
-    setArrToRender(arrs => [...arrs, Array(1).fill(0, 0,1)])
-
-    const topCoordinates = Math.floor(Math.random() * (610 - 40)) + 40
-    const leftCoordinates = Math.floor(Math.random() * (610 - 40)) + 40;
-    const delay = Math.floor(Math.random() * (3 - 1)) + 1;
-    setCoordinatesArray([topCoordinates, leftCoordinates, delay]);
-    setTimeCount(value => value + 1);
-  }, []);
+      const topCoordinates = Math.floor(Math.random() * (610 - 40)) + 40
+      const leftCoordinates = Math.floor(Math.random() * (610 - 40)) + 40;
+      const delay = Math.floor(Math.random() * (3 - 1)) + 1;
+      setCoordinatesArray([topCoordinates, leftCoordinates, delay]);
+      setDefaultTime(Date.now());
+    }
+  }, [isGameNow]);
 
   //todo поправить окончание игры
 
   useEffect(() => {
-    if (isGameNow && timeCount < 15 ) {
+    if (isGameNow && hitResult.length < 11 && arrToRender.length === 0) {
       const randomFuncId = setInterval(() => onRandomShowBlock(), 3000);
       return () => { clearInterval(randomFuncId)}
     }
-  }, [timeCount, isGameNow, onRandomShowBlock]);
+  }, [hitResult, isGameNow, onRandomShowBlock,  arrToRender.length]);
+
+  useEffect(() =>{
+    if (hitResult.length > 0 && hitResult.length <=10) {
+      setAverageAim(hitResult.reduce((a, b) => +a + +b) / hitResult.length);
+    }
+  }, [hitResult])
 
   useEffect(() => {
-    if(timeCount === 15) {
-      alert(`Игра окончена, ваш результат ${userHit} очков`)
-      setGameResult('game number 6', userHit)
+    if (hitResult.length === 10) {
+      alert(`Игра окончена, ваш средний Aim ${averageAim}`);
+      setGameResult('game number 6', averageAim)
       setCoordinatesArray([]);
-      setTimeCount(0);
-      setUserHit(0);
       setIsGameNow(false);
+      setItemDelay(0);
+      setDefaultTime(0);
+      setHitResult([]);
     }
-  }, [timeCount, userHit])
+  }, [averageAim, hitResult])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < coordinatesArray[2] + 2) {
@@ -53,38 +62,21 @@ const SixthGameScreen = () => {
     }
 
   }, [clickDelay, isGameNow, coordinatesArray])
+
   const addScoreAndDelete = (event) => {
-    setUserHit(value => value +1);
+    let timeDifference = (((Date.now() - defaultTime) / 1000) - 1).toFixed(2)
+    setHitResult([...hitResult, timeDifference]);
     event.stopPropagation();
-    setCoordinatesArray([]);
-  };
+    setItemDelay(0);
+    setArrToRender([])
+  }
 
-  const goToMenu = () => {
-    history.push(routes.getSelectGameScreen());
-  };
-
+    const handleMissClick = () => {
+      setHitResult([...hitResult, [1]]); setArrToRender([])
+    };
   return (
     <div className='sixthGameScreen'>
       <div className='sixthGameScreen__gameWrapper'>
-        <div className='sixthGameScreen__gameWrapper__settingBar'>
-          <button
-            className='sixthGameScreen__gameWrapper__settingBar__button'
-            onClick={() => setIsGameNow(value => !value)}
-          >
-            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
-          </button>
-          <button
-            onClick={goToMenu}
-            className='sevenGameScreen__gameWrapper__settingBar__button'
-          >
-            Выйти в меню
-          </button>
-        </div>
-        <div className='sixthGameScreen__gameWrapper__title'>
-          <div>
-            Правильных кликов { userHit }
-          </div>
-        </div>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           className="sixthGameScreen__gameWrapper__gameScreen">
@@ -92,9 +84,9 @@ const SixthGameScreen = () => {
           <div
             key={index}
             onClick={
-              clickDelay >= coordinatesArray[2] ?
-                event => addScoreAndDelete(event):
-                () => { alert('Кнопка не активна')}}
+              clickDelay >= itemDelay ?
+                  event => addScoreAndDelete(event, index):
+                  handleMissClick}
             className="sixthGameScreen__gameWrapper__gameScreen__handleItem"
             style={
               {
@@ -106,6 +98,38 @@ const SixthGameScreen = () => {
             }
           />
           )}
+        </div>
+        <div className='sixthGameScreen__gameWrapper__optionsBar'>
+          <div>
+            {/*{ hitResult.length < 10 && `Осталось попыток ${10 - hitResult.length}`}*/}
+          </div>
+          <button
+              className='sixthGameScreen__gameWrapper__optionsBar__button'
+              onClick={() => setIsGameNow(value => !value)}
+          >
+            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+          <div>средний шанс</div>
+          <div
+              className='sixthGameScreen__gameWrapper__optionsBar__table'
+          >  {hitResult.map((item, index) =>
+              <div
+                  className='sixthGameScreen__gameWrapper__optionsBar__item'
+              >
+                {`Aim ${index + 1} ${item}sec`}
+              </div>
+          )}
+          </div>
+        </div>
+      </div>
+      <div className='sixthGameScreen__gameDescription'>
+        <div className='sixthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='sixthGameScreen__gameDescription__aboutGame'>
+          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
+          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
+          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

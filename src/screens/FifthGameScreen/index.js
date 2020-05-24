@@ -5,12 +5,11 @@ import './style.scss';
 
 const FifthGameScreen = () => {
   const [itemDelay, setItemDelay] = useState(0);
-  const [arrToRender, setArrToRender] = useState([]) //с этого дерьма буду брать сам елемент
-  // const [timeCount, setTimeCount] = useState(0);
+  const [arrToRender, setArrToRender] = useState([])
   const [isGameNow, setIsGameNow] = useState(false);
-  const [clickDelay, setClickDelay] = useState(0) //я буду это делалать при создании елемента
-  const [hitResult, setHitResult] = useState([]); //нужно
-  const [averageAim, setAverageAim] = useState(0) //нужно
+  const [clickDelay, setClickDelay] = useState(0)
+  const [hitResult, setHitResult] = useState([]);
+  const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
 
   const onRandomShowBlock = useCallback(() => {
