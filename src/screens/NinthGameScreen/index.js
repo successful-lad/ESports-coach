@@ -96,7 +96,7 @@ const NinthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 124) {
       alert(`Игра окончена, ваш счет ${userScore}`)
-      setGameResult('game number 9', userScore)
+      setGameResult('game number 9', userScore, +localStorage.getItem("elo") || 0)
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);

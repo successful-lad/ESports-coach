@@ -20,10 +20,10 @@ const logIn = async (userData) => {
   return await fetchResponse.json();
 };
 
-const setGameResult = async (gameNumber, gameResult) => {
+const setGameResult = async (gameNumber, gameResult, elo) => {
   const fetchResponse = await fetch('http://localhost:3000/v1/stats', {
     method: 'POST',
-    body: JSON.stringify({game: gameNumber, result: gameResult}),
+    body: JSON.stringify({game: gameNumber, result: gameResult, elo}),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`

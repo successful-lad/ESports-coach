@@ -9,7 +9,7 @@ const SecondGameScreen = () => {
   const [userHit, setUserHit] = useState(0);
   const [userMissed, setUserMissed] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [gameDifficulty, setGameDifficulty] = useState(0);
+  const [gameDifficulty, setGameDifficulty] = useState(+localStorage.getItem("elo") || 0);
   const [userScore, setUserScore] = useState(0)
 
   const onRandomShowBlock = useCallback(() => {
@@ -48,7 +48,7 @@ const SecondGameScreen = () => {
 
   useEffect(() => {
     if(timeCount === 120) {
-      setGameResult('game number 2', userScore )
+      setGameResult('game number 2', userScore, gameDifficulty || 1000 )
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -70,6 +70,11 @@ const SecondGameScreen = () => {
   const handleMissingClick = () => {
     setUserMissed(value => value +1 );
     setUserScore(value => value - 100);
+  };
+
+  const setDifficulty = (event) => {
+    setGameDifficulty(+event.target.value)
+    localStorage.setItem("elo", event.target.value)
   };
 
   return (
@@ -100,7 +105,8 @@ const SecondGameScreen = () => {
             <input
               className='secondGameScreen__gameWrapper__optionsBar__input'
               type="text"
-              onChange={e => setGameDifficulty(+e.target.value)}
+              onChange={event => setDifficulty(event)}
+              value={gameDifficulty}
             />
           </div>
           <div>Счет {userScore}</div>

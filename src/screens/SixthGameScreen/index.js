@@ -43,7 +43,7 @@ const SixthGameScreen = () => {
   useEffect(() => {
     if (hitResult.length === 10) {
       alert(`Игра окончена, ваш средний Aim ${averageAim}`);
-      setGameResult('game number 6', averageAim)
+      setGameResult('game number 6', averageAim, +localStorage.getItem("elo") || 0)
       setCoordinatesArray([]);
       setIsGameNow(false);
       setItemDelay(0);

@@ -9,7 +9,7 @@ const FourthGameScreen = () => {
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [gameDifficulty, setGameDifficulty] = useState(0);
+  const [gameDifficulty, setGameDifficulty] = useState(+localStorage.getItem("elo") || 0);
   const [userScore, setUserScore] = useState(0);
   const [userMissClick, setUserMissClick] = useState(0)
 
@@ -50,7 +50,7 @@ const FourthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 4', userScore)
+      setGameResult('game number 4', userScore, gameDifficulty || 1000)
       setFigureCoordinates([]);
       setUserScore(0);
       setTimeCount(0);
@@ -84,6 +84,10 @@ const FourthGameScreen = () => {
     setUserMissClick(value => value + 1)
   };
 
+  const setDifficulty = (event) => {
+    setGameDifficulty(+event.target.value)
+    localStorage.setItem("elo", event.target.value)
+  };
   return (
     <div className='fourthGameScreen'>
       <div className='fourthGameScreen__gameWrapper'>
@@ -136,7 +140,8 @@ const FourthGameScreen = () => {
             <input
               className='fourthGameScreen__gameWrapper__optionsBar__input'
               type="text"
-              onChange={e => setGameDifficulty(+e.target.value)}
+              onChange={event => setDifficulty(event)}
+              value={gameDifficulty}
             />
           </div>
           <div>Счет {userScore}</div>

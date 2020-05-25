@@ -8,7 +8,7 @@ const ThirdGameScreen = () => {
   const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [gameDifficulty, setGameDifficulty] = useState(0);
+  const [gameDifficulty, setGameDifficulty] = useState(+localStorage.getItem("elo") || 0);
   const [userScore, setUserScore] = useState(0);
   const [firstCircleHit, setFirstCircleHit] = useState(0)
   const [secondCircleHit, setSecondCircleHit] = useState(0)
@@ -52,7 +52,7 @@ const ThirdGameScreen = () => {
   useEffect(() => {
     if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 3', userScore)
+      setGameResult('game number 3', userScore, gameDifficulty || 1000)
       setCircleCoordinates([]);
       setTimeCount(0);
       setUserScore(0);
@@ -91,6 +91,11 @@ const ThirdGameScreen = () => {
 
   const handleMissingClick = () => {
       setUserScore(value => value - 100);
+  };
+
+  const setDifficulty = (event) => {
+    setGameDifficulty(+event.target.value)
+    localStorage.setItem("elo", event.target.value)
   };
 
   return (
@@ -142,7 +147,8 @@ const ThirdGameScreen = () => {
             <input
               className='secondGameScreen__gameWrapper__optionsBar__input'
               type="text"
-              onChange={e => setGameDifficulty(+e.target.value)}
+              onChange={event => setDifficulty(event)}
+              value={gameDifficulty}
             />
           </div>
           <div>Набрано очков {userScore}</div>

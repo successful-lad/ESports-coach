@@ -17,6 +17,7 @@ import {
     SixthGameScreen,
     SevenGameScreen,
 } from '../src/screens';
+
 import { GlobalHeader, SideBar } from '../src/components';
 
 import ReactDOM from 'react-dom';

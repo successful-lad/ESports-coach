@@ -7,7 +7,7 @@ const EighthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [gameDifficulty, setGameDifficulty] = useState(0);
+  const [gameDifficulty, setGameDifficulty] = useState(+localStorage.getItem("elo") || 0);
   const [userScore, setUserScore] = useState(0)
   const [fTime, setFTime] = useState(0);
   const [userHit, setUserHit] = useState(0);
@@ -53,7 +53,7 @@ const EighthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 8', userScore)
+      setGameResult('game number 8', userScore, gameDifficulty || 1000)
       setUserScore(0);
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -111,6 +111,11 @@ const EighthGameScreen = () => {
     }
   };
 
+  const setDifficulty = (event) => {
+    setGameDifficulty(+event.target.value)
+    localStorage.setItem("elo", event.target.value)
+  };
+
   return (
     <div className='eighthGameScreen'>
       <div className='eighthGameScreen__gameWrapper'>
@@ -139,7 +144,8 @@ const EighthGameScreen = () => {
             <input
               className='eighthGameScreen__gameWrapper__optionsBar__input'
               type="text"
-              onChange={e => setGameDifficulty(+e.target.value)}
+              onChange={event => setDifficulty(event)}
+              value={gameDifficulty}
             />
           </div>
           <div>набрано очков {userScore}</div>

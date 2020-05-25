@@ -40,7 +40,7 @@ console.log(averageAim);
   useEffect(() => {
     if (hitResult.length === 10) {
       alert(`Игра окончена, ваш средний Aim ${averageAim}`);
-      setGameResult('game number 5', averageAim);
+      setGameResult('game number 5', averageAim, +localStorage.getItem("elo") || 0);
       setIsGameNow(false)
       setItemDelay(0);
       setDefaultTime(0);

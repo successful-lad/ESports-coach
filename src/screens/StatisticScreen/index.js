@@ -13,6 +13,8 @@ const StatisticScreen = () => {
     }
   }, []);
 
+console.log(userData)
+
   const firstGameData = useMemo(() =>{
      let data =  userData.filter(item => item.game === 'game number 1').map(item => item.result)
      let gameData = [];
