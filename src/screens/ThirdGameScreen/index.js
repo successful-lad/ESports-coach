@@ -21,7 +21,7 @@ const ThirdGameScreen = () => {
       const leftCoordinates = Math.floor(Math.random() * (610 - 40)) + 40;
       setCircleCoordinates([topCoordinates, leftCoordinates]);
     }
-  }, [isGameNow, circleCoordinates]);
+  }, [isGameNow]);
 
   useEffect(()=> {
     if (isGameNow) {
@@ -63,7 +63,7 @@ const ThirdGameScreen = () => {
       setThirdCircleHit(0);
 
     }
-  }, [timeCount, userHit, userScore])
+  }, [timeCount, userHit, userScore, gameDifficulty])
 
   const addScore = (event, scorePerHit, circleMark) => {
     setUserScore(value => value + scorePerHit);

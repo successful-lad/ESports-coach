@@ -57,7 +57,7 @@ const SecondGameScreen = () => {
       setUserMissed(0);
       setIsGameNow(false);
     }
-  }, [timeCount, userHit, userScore])
+  }, [timeCount, userHit, userScore, gameDifficulty])
 
   const addScoreAndDelete = (event) => {
     setUserHit(value => value + 1);

@@ -11,15 +11,16 @@ const FifthGameScreen = () => {
   const [hitResult, setHitResult] = useState([]);
   const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
+  const [timeToFinish, setTimeToFinish] = useState(0);
 
   const onRandomShowBlock = useCallback(() => {
-    if (isGameNow) {
+    if (isGameNow && hitResult.length <= 10) {
       setArrToRender(() => [Array(1).fill(0, 0,1)])
       const delay = Math.floor(Math.random() * (3 - 1)) + 1;
       setItemDelay(delay);
       setDefaultTime(Date.now());
     }
-  }, [isGameNow]);
+  }, [isGameNow, hitResult]);
 
   useEffect(() => {
     if (isGameNow && hitResult.length < 11 && arrToRender.length === 0) {
@@ -34,19 +35,24 @@ const FifthGameScreen = () => {
     }
   }, [hitResult])
 
-  console.log(hitResult);
-console.log(averageAim);
-
   useEffect(() => {
     if (hitResult.length === 10) {
+      const randomFuncId = setInterval(() => setTimeToFinish(value => value +1), 1000);
+      return () => { clearInterval(randomFuncId)}
+    }
+  }, [hitResult])
+
+  useEffect(() => {
+    if (timeToFinish === 3) {
       alert(`Игра окончена, ваш средний Aim ${averageAim}`);
       setGameResult('game number 5', averageAim, +localStorage.getItem("elo") || 0);
       setIsGameNow(false)
       setItemDelay(0);
       setDefaultTime(0);
       setHitResult([]);
+      setTimeToFinish(0);
     }
-  }, [averageAim, hitResult])
+  }, [averageAim, hitResult, timeToFinish])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < itemDelay + 2) {

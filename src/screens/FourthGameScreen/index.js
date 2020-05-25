@@ -58,7 +58,7 @@ const FourthGameScreen = () => {
       setIsGameNow(false);
       setUserMissClick(0);
     }
-  }, [userScore, timeCount, userHit])
+  }, [userScore, timeCount, userHit, gameDifficulty])
 
   const addScoreAndDelete = (event, scorePerHit, mark) => {
     switch (mark) {

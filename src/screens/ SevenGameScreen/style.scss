@@ -77,6 +77,16 @@
           color: white;
         }
       }
+
+      &__table {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      &__item {
+        width: 50%;
+      }
     }
   }
 

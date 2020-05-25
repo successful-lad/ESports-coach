@@ -11,6 +11,7 @@ const SevenGameScreen = () => {
   const [aimResults, setAimResults] = useState([]);
   const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
+  const [timeToFinish, setTimeToFinish] = useState(0);
 
   useEffect(()=> {
     if(isGameNow && timeCount === 0) {
@@ -41,9 +42,15 @@ const SevenGameScreen = () => {
     }
   }, [clickDelay, isGameNow, timeCount])
 
+  useEffect(() => {
+    if (aimResults.length === 10) {
+      const randomFuncId = setInterval(() => setTimeToFinish(value => value +1), 1000);
+      return () => { clearInterval(randomFuncId)}
+    }
+  }, [aimResults])
 
   useEffect(() => {
-    if(aimResults.length === 10 ) {
+    if(timeToFinish === 3 ) {
       alert(`Игра окончена, вваш средний aim ${averageAim}`)
       setGameResult('game number 7', averageAim, +localStorage.getItem("elo") || 0)
       setCoordinatesArray([]);
@@ -52,8 +59,9 @@ const SevenGameScreen = () => {
       setClickDelay(0)
       setAimResults([]);
       setAverageAim(0);
+      setTimeToFinish(0);
     }
-  }, [aimResults.length, averageAim])
+  }, [timeToFinish, averageAim])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < 10) {
@@ -68,7 +76,7 @@ const SevenGameScreen = () => {
 
   useEffect(() =>{
     if (aimResults.length > 0 && aimResults.length <=10) {
-      setAverageAim(aimResults.reduce((a, b) => +a + +b) / aimResults.length);
+      setAverageAim((aimResults.reduce((a, b) => +a + +b) / aimResults.length).toFixed(2));
     }
   }, [aimResults]);
 
@@ -113,10 +121,16 @@ const SevenGameScreen = () => {
           )}
         </div>
         <div className='sevenGameScreen__gameWrapper__optionsBar'>
-          <div>В среднем {averageAim.toFixed(2)}сек</div>
+          <div>В среднем {averageAim}сек</div>
+          <div className='sevenGameScreen__gameWrapper__optionsBar__table'>
           {aimResults.length > 0 && aimResults.map((res, index) => (
-              <div key={index}>Aim{index +1} {res}</div>
+              <div
+                  key={index}
+                  className='sevenGameScreen__gameWrapper__optionsBar__item'
+              >
+                Aim{index +1} {res}</div>
           ))}
+          </div>
           <button
               className='sevenGameScreen__gameWrapper__optionsBar__button'
               onClick={() => setIsGameNow(value => !value)}

@@ -22,7 +22,7 @@ const EighthGameScreen = () => {
       setCoordinatesArray([topCoordinates, leftCoordinates]);
       setFTime(Date.now());
     }
-  }, [isGameNow, fTime]);
+  }, [isGameNow]);
 
   let newTimeOut = 2500;
 
@@ -63,7 +63,7 @@ const EighthGameScreen = () => {
       setAimResults([]);
       setUserScoreArr([]);
     }
-  }, [timeCount, userScore])
+  }, [timeCount, userScore, gameDifficulty])
 
   const addScoreAndDelete = (event) => {
     setUserHit(value => value + 1);

@@ -12,6 +12,7 @@ const SixthGameScreen = () => {
   const [hitResult, setHitResult] = useState([]);
   const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
+  const [timeToFinish, setTimeToFinish] = useState(0);
 
   const onRandomShowBlock = useCallback(() => {
     if (isGameNow) {
@@ -42,6 +43,13 @@ const SixthGameScreen = () => {
 
   useEffect(() => {
     if (hitResult.length === 10) {
+      const randomFuncId = setInterval(() => setTimeToFinish(value => value +1), 1000);
+      return () => { clearInterval(randomFuncId)}
+    }
+  }, [hitResult])
+
+  useEffect(() => {
+    if (timeToFinish === 3) {
       alert(`Игра окончена, ваш средний Aim ${averageAim}`);
       setGameResult('game number 6', averageAim, +localStorage.getItem("elo") || 0)
       setCoordinatesArray([]);
@@ -49,8 +57,9 @@ const SixthGameScreen = () => {
       setItemDelay(0);
       setDefaultTime(0);
       setHitResult([]);
+      setTimeToFinish(0)
     }
-  }, [averageAim, hitResult])
+  }, [averageAim, timeToFinish])
 /* todo чекнуть старую версию страницы, раньше был лучше рирендер елемента и он полностью пропадал */
   useEffect(() =>{
     if (isGameNow && clickDelay < coordinatesArray[2] + 2) {

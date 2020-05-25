@@ -57,7 +57,7 @@ const NinthGameScreen = () => {
       setIsGameNow(false);
       setUserScore(0);
     }
-  }, [timeCount, userHit, userScore])
+  }, [timeCount, userHit, userScore, gameDifficulty])
 
   const chanceToHit = useMemo(() => {
     if(isNaN(userHit/userMissed)) {
