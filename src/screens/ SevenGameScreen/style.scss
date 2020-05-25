@@ -2,54 +2,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   &__gameWrapper {
-    padding: 60px 200px;
+    padding: 60px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     border-radius: 10px;
     border: 1px solid black;
-    min-height: 400px;
-
-    &__settingBar {
-      display: flex;
-      justify-content: space-between;
-        width: 804px;
-      margin-bottom: 40px;
-
-      &__button {
-        height: 40px;
-        box-sizing: border-box;
-        padding: 10px 20px;
-        font-size: 14px;
-        border: 1px solid black;
-        background: none;
-        transition: background 0.5s ease-in,
-        color 0.5s ease-in;
-
-        &:hover {
-          background: black;
-          color: white;
-        }
-      }
-
-      &__difficultyScale {
-        display: flex;
-        align-items: center;
-        width: 200px;
-        justify-content: space-between;
-        font-size: 20px;
-      }
-    }
-
-    &__title {
-      display: flex;
-      justify-content: space-between;
-      width: 800px;
-      margin-bottom: 20px;
-    };
 
     &__gameScreen {
       width: 700px;
@@ -79,6 +40,61 @@
           background: gray;
         }
       }
+    }
+
+    &__optionsBar {
+      margin-left: 40px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      justify-content: space-around;
+
+      &__elo {
+        display: flex;
+        height: 30px;
+        align-items: center;
+      }
+
+      &__input {
+        width: 120px;
+        margin-left: 20px;
+        height: 20px;
+      }
+
+      &__button {
+        height: 30px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border: 1px solid black;
+        background: none;
+        transition: background 0.5s ease-in,
+        color 0.5s ease-in;
+        width: 150px;
+
+        &:hover {
+          background: black;
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__gameDescription {
+    box-sizing: border-box;
+    padding: 20px 40px 40px;
+    margin-top: 40px;
+    width: 1160px;
+    border-radius: 5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    &__title {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
   }
 }

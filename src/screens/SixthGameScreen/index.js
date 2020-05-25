@@ -7,7 +7,6 @@ const SixthGameScreen = () => {
   const [itemDelay, setItemDelay] = useState(0);
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [arrToRender, setArrToRender] = useState([])
-  // const [timeCount, setTimeCount] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [clickDelay, setClickDelay] = useState(0)
   const [hitResult, setHitResult] = useState([]);

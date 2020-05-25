@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {setGameResult} from "../../api";
-import { history } from "../../configureStore";
-import routes from "../../consts/routes";
 
 import './style.scss';
 
 const SevenGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
-  const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [clickDelay, setClickDelay] = useState(1)
+  const [aimResults, setAimResults] = useState([]);
+  const [averageAim, setAverageAim] = useState(0);
+  const [defaultTime, setDefaultTime] = useState(0);
 
   useEffect(()=> {
-    if(isGameNow && (timeCount === 0 || timeCount === 10 || timeCount === 20)) {
+    if(isGameNow && timeCount === 0) {
       setClickDelay(0);
 
       const circlePart = Array(10)
@@ -26,7 +26,7 @@ const SevenGameScreen = () => {
           ];
         });
       setCoordinatesArray(circlePart)
-
+      setDefaultTime(Date.now());
     }
   }, [isGameNow, timeCount]);
 
@@ -35,25 +35,25 @@ const SevenGameScreen = () => {
       let timeCountId = setInterval(() => setTimeCount(value => value +1), 1000);
       return () => { clearInterval(timeCountId) };
     }
+    //тут чекнуть задержку
     if( timeCount === 0 || timeCount === 9 || timeCount === 18) {
       setClickDelay(0)
     }
   }, [clickDelay, isGameNow, timeCount])
 
-  // console.log(`timecount ${timeCount}`, `delay ${clickDelay}`)
 
   useEffect(() => {
-    if(timeCount === 30 ) {
-      alert(`Игра окончена, вы сделали ${userHit} правильных кликов`)
-      setGameResult('game number 7', userHit)
-
+    if(aimResults.length === 10 ) {
+      alert(`Игра окончена, вваш средний aim ${averageAim}`)
+      setGameResult('game number 7', averageAim)
       setCoordinatesArray([]);
       setTimeCount(0);
-      setUserHit(0);
       setIsGameNow(false);
       setClickDelay(0)
+      setAimResults([]);
+      setAverageAim(0);
     }
-  }, [timeCount, userHit])
+  }, [aimResults.length, averageAim])
 
   useEffect(() =>{
     if (isGameNow && clickDelay < 10) {
@@ -64,7 +64,13 @@ const SevenGameScreen = () => {
     } else  {
       setClickDelay(0)
     }
-  }, [clickDelay, isGameNow, coordinatesArray])
+  }, [clickDelay, isGameNow, coordinatesArray]);
+
+  useEffect(() =>{
+    if (aimResults.length > 0 && aimResults.length <=10) {
+      setAverageAim(aimResults.reduce((a, b) => +a + +b) / aimResults.length);
+    }
+  }, [aimResults]);
 
   const deleteBlock = (id) => {
     setCoordinatesArray(coordinatesArray.filter((arr, index) =>
@@ -72,49 +78,27 @@ const SevenGameScreen = () => {
     ))
   };
 
-  const addScoreAndDelete = (event, index) => {
-    setUserHit(value => value +1);
+  const addScoreAndDelete = (event, index, elementDelay) => {
+    let timeDifference = (((Date.now() - defaultTime) / 1000) - elementDelay - 1).toFixed(2)
+    setAimResults([...aimResults, timeDifference]);
     event.stopPropagation();
     deleteBlock(index);
-  };
-
-  const goToMenu = () => {
-    history.push(routes.getSelectGameScreen());
   };
 
   return (
     <div className='sevenGameScreen'>
       <div className='sevenGameScreen__gameWrapper'>
-        <div className='sevenGameScreen__gameWrapper__settingBar'>
-          <button
-            className='sevenGameScreen__gameWrapper__settingBar__button'
-            onClick={() => setIsGameNow(value => !value)}
-          >
-            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
-          </button>
-          <button
-            onClick={goToMenu}
-            className='sevenGameScreen__gameWrapper__settingBar__button'
-          >
-            Выйти в меню
-          </button>
-        </div>
-        <div className='sevenGameScreen__gameWrapper__title'>
-          <div>
-            Правильных кликов { userHit }
-          </div>
-        </div>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           className="sevenGameScreen__gameWrapper__gameScreen">
           {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) => {
-            console.log(`click delay ${clickDelay}`, `elem time ${crts[2]}`)
+            // console.log(`click delay ${clickDelay}`, `elem time ${crts[2]}`)
             return (
               <div
                 key={index}
                 onClick={
                   (clickDelay >= crts[2] || clickDelay <= crts[2] + 4) ?
-                    event => addScoreAndDelete(event, index):
+                    event => addScoreAndDelete(event, index, crts[2]):
                     () => {}}
                 className="sevenGameScreen__gameWrapper__gameScreen__handleItem"
                 style={
@@ -127,6 +111,28 @@ const SevenGameScreen = () => {
               />
             )}
           )}
+        </div>
+        <div className='sevenGameScreen__gameWrapper__optionsBar'>
+          <div>В среднем {averageAim.toFixed(2)}сек</div>
+          {aimResults.length > 0 && aimResults.map((res, index) => (
+              <div key={index}>Aim{index +1} {res}</div>
+          ))}
+          <button
+              className='sevenGameScreen__gameWrapper__optionsBar__button'
+              onClick={() => setIsGameNow(value => !value)}
+          >
+            {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
+          </button>
+        </div>
+      </div>
+      <div className='sevenGameScreen__gameDescription'>
+        <div className='sevenGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='sevenGameScreen__gameDescription__aboutGame'>
+          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
+          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
+          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>
