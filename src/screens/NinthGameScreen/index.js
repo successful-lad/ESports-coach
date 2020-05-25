@@ -5,7 +5,7 @@ import './style.scss';
 
 const NinthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
-  const [timeCount, setTimeCount] = useState(0);
+  const [timeCount, setTimeCount] = useState(80);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [firstAim, setFirstAim] = useState(0);
@@ -69,7 +69,6 @@ const NinthGameScreen = () => {
       setRoundTime(rTime);
   }, [timeCount]);
 
-/* todo допилить проверку на isFinity на результат Aim */
   useEffect(() => {
     if ((coordinatesArray.length === 0 && (timeCount > 0 && timeCount < 40)) || timeCount === 40) {
       setFirstAim((41 - roundTime)/userHit);
@@ -79,15 +78,18 @@ const NinthGameScreen = () => {
 
     if ((coordinatesArray.length === 0 && (timeCount > 40 && timeCount < 80)) || timeCount === 80) {
       setSecondAim((41 - roundTime)/userHit);
-      setTimeCount(81);
       setUserHit(0);
+      if ((coordinatesArray.length === 0 && (timeCount > 42 && timeCount < 80)) || timeCount === 80) {
+        setTimeCount(81);
+      }
     }
 
     if ((coordinatesArray.length === 0 && (timeCount > 80 && timeCount < 120)) || timeCount === 120) {
       setThirdAim((41 - roundTime)/userHit);
       setUserHit(0);
-      setTimeCount(121);
-
+      if ((coordinatesArray.length === 0 && (timeCount > 82 && timeCount < 120)) || timeCount === 120) {
+        setTimeCount(121);
+      }
     }
   }, [userHit, roundTime, coordinatesArray, timeCount])
 
@@ -172,9 +174,10 @@ const NinthGameScreen = () => {
           </div>
           <div>{`Попаданий ${allUserHit}`}</div>
           <div>{`Промахов ${userMissClick}`}</div>
-          <div>{`Aim1 ${firstAim}сек`}</div>
-          <div>{`Aim2 ${secondAim}сек`}</div>
-          <div>{`Aim3 ${thirdAim}сек`}</div>
+          <div>{`Aim1 ${isFinite(firstAim) ? firstAim : 0}сек`}</div>
+          <div>{`Aim2 ${isFinite(secondAim) ? secondAim : 0}сек`}</div>
+          {/* todo есть кейс где не показывает третий aim*/}
+          <div>{`Aim3 ${isFinite(thirdAim) ? thirdAim : 0}сек`}</div>
         </div>
     </div>
       <div className='ninthGameScreen__gameDescription'>
