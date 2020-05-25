@@ -1,13 +1,13 @@
 import * as forms from './forms';
 import * as inputs from './inputs';
-import ScoreGraph from "./ScoreGraph";
 import GlobalHeader from "./GlobalHeader";
 import SideBar from "./SideBar";
+import ReCharts from "./ReCharts";
 
 export {
     forms,
     inputs,
-    ScoreGraph,
     GlobalHeader,
-    SideBar
+    SideBar,
+    ReCharts
 };
