@@ -58,7 +58,6 @@ const EighthGameScreen = () => {
       setCoordinatesArray([]);
       setTimeCount(0);
       setIsGameNow(false);
-      setGameDifficulty(0)
       setUserHit(0);
       setUserMissClick(0);
       setAimResults([]);

@@ -56,7 +56,6 @@ const SecondGameScreen = () => {
       setUserHit(0);
       setUserMissed(0);
       setIsGameNow(false);
-      setGameDifficulty(0)
     }
   }, [timeCount, userHit, userScore])
 

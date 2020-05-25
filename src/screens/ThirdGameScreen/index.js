@@ -58,7 +58,6 @@ const ThirdGameScreen = () => {
       setUserScore(0);
       setUserHit(0);
       setIsGameNow(false);
-      setGameDifficulty(0)
       setFirstCircleHit(0);
       setSecondCircleHit(0);
       setThirdCircleHit(0);

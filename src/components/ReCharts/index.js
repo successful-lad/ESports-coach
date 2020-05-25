@@ -5,7 +5,8 @@ import {
     CartesianGrid,
     XAxis,
     YAxis,
-    Tooltip
+    Tooltip,
+    Legend
 } from "recharts";
 
 
@@ -18,15 +19,16 @@ const ReCharts = ({ gameData, title }) => (
             width={600}
             height={300}
             data={gameData}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            margin={{top: 5, right: 20, bottom: 5, left: 0}}
         >
-            <Line type="monotone" dataKey="score" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
+            <Line type="monotone" dataKey="score" stroke="#575969"/>
+            <Line type="monotone" dataKey="elo" stroke="#d98a23"/>
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <Tooltip/>
+            <Legend />
         </LineChart>
     </div>
 )
-
 export default ReCharts;

@@ -55,7 +55,6 @@ const NinthGameScreen = () => {
       setUserHit(0);
       setUserMissed(0);
       setIsGameNow(false);
-      setGameDifficulty(0);
       setUserScore(0);
     }
   }, [timeCount, userHit, userScore])

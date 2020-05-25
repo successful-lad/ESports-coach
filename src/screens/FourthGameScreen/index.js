@@ -56,7 +56,6 @@ const FourthGameScreen = () => {
       setTimeCount(0);
       setUserHit(0);
       setIsGameNow(false);
-      setGameDifficulty(0);
       setUserMissClick(0);
     }
   }, [userScore, timeCount, userHit])
