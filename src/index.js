@@ -24,6 +24,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
+        <div style={{display:"flex", marginTop: 60}}>
         <Router history={ history }>
             <Route component={SideBar} />
             <Route component={GlobalHeader} />
@@ -43,6 +44,7 @@ ReactDOM.render(
                 <Route path={routes.getAuthorization()} component={AuthorizationScreen} />
             </Switch>
         </Router>
+        </div>
     </React.StrictMode>,
     document.getElementById('root')
 );
