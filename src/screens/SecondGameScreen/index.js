@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { setGameResult } from "../../api";
 
 import './style.scss';
@@ -62,14 +62,6 @@ const SecondGameScreen = () => {
     }
   }, [timeCount, userHit, userScore])
 
-  const chanceToHit = useMemo(() => {
-      if(isNaN(userHit/userMissed)) {
-        return 100
-      } else  {
-        return (100 - (100 /((userHit + userMissed)) * userMissed)).toFixed(2);
-      }
-    }, [userMissed, userHit])
-
   const addScoreAndDelete = (event) => {
     setUserHit(value => value + 1);
     setUserScore( value => value + 300);
@@ -79,11 +71,7 @@ const SecondGameScreen = () => {
 
   const handleMissingClick = () => {
     setUserMissed(value => value +1 );
-    if (userScore >= 100) {
-      setUserScore(value => value - 100);
-    } else {
-      setUserScore(0)
-    }
+    setUserScore(value => value - 100);
   };
 
   return (
@@ -117,9 +105,10 @@ const SecondGameScreen = () => {
               onChange={e => setGameDifficulty(+e.target.value)}
             />
           </div>
-          <div>набрано очков {userScore}</div>
+          <div>Счет {userScore}</div>
+          <div>Попаданий {userHit}</div>
+          <div>Промахов {userMissed}</div>
           <div>осталось времени {120 - timeCount}</div>
-          <div> процент попадания {chanceToHit}%</div>
           <button
             className='secondGameScreen__gameWrapper__optionsBar__button'
             onClick={() => setIsGameNow(value => !value)}

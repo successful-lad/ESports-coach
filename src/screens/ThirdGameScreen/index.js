@@ -55,7 +55,7 @@ const ThirdGameScreen = () => {
       setGameResult('game number 3', userScore)
       setCircleCoordinates([]);
       setTimeCount(0);
-      setUserScore(userScore);
+      setUserScore(0);
       setUserHit(0);
       setIsGameNow(false);
       setGameDifficulty(0)
@@ -90,11 +90,7 @@ const ThirdGameScreen = () => {
   };
 
   const handleMissingClick = () => {
-    if (userScore >= 100) {
       setUserScore(value => value - 100);
-    } else {
-      setUserScore(0)
-    }
   };
 
   return (

@@ -11,6 +11,7 @@ const FourthGameScreen = () => {
   const [isGameNow, setIsGameNow] = useState(false);
   const [gameDifficulty, setGameDifficulty] = useState(0);
   const [userScore, setUserScore] = useState(0);
+  const [userMissClick, setUserMissClick] = useState(0)
 
   const onRandomShowBlock = useCallback(() => {
 
@@ -55,23 +56,22 @@ const FourthGameScreen = () => {
       setTimeCount(0);
       setUserHit(0);
       setIsGameNow(false);
-      setGameDifficulty(0)
+      setGameDifficulty(0);
+      setUserMissClick(0);
     }
   }, [userScore, timeCount, userHit])
 
   const addScoreAndDelete = (event, scorePerHit, mark) => {
-    // eslint-disable-next-line default-case
     switch (mark) {
       case ('+'): {
-        setUserScore( value => value + scorePerHit)
+        setUserScore( value => value + scorePerHit);
+        setUserHit(value => value +1);
         break;
       }
+      default:
       case ('-'): {
-        if (userScore >= 150) {
-          setUserScore(value => value - scorePerHit);
-        } else {
-          setUserScore(0)
-        }
+        setUserMissClick(value => value + 1)
+        setUserScore(value => value - scorePerHit);
       }
     }
 
@@ -80,9 +80,8 @@ const FourthGameScreen = () => {
   };
 
   const handleMissClick = () => {
-    if (userScore >= 100) {
-      setUserScore(value => value - 100);
-    }
+    setUserScore(value => value - 100);
+    setUserMissClick(value => value + 1)
   };
 
   return (
@@ -122,7 +121,7 @@ const FourthGameScreen = () => {
           }
           {figureCoordinates.length > 0 && figureCoordinates[2] === 2 && (
             <div
-              onClick={event => addScoreAndDelete(event, 20, '-')}
+              onClick={event => addScoreAndDelete(event, 150, '-')}
               className="fourthGameScreen__gameWrapper__gameScreen__handleItem"
               style={{top: figureCoordinates[0], left: figureCoordinates[1]}}
             />
@@ -140,7 +139,9 @@ const FourthGameScreen = () => {
               onChange={e => setGameDifficulty(+e.target.value)}
             />
           </div>
-          <div>набрано очков {userScore}</div>
+          <div>Счет {userScore}</div>
+          <div>Попаданий {userHit}</div>
+          <div>Промахов {userMissClick}</div>
           <div>осталось времени { 120 - timeCount} </div>
           <button
             className='fourthGameScreen__gameWrapper__optionsBar__button'

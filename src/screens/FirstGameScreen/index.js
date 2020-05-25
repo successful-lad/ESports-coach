@@ -82,11 +82,8 @@ const NinthGameScreen = () => {
   };
 
   const decUserScore = () => {
-
-    if (userScore >= 100) {
-      setUserScore(value => value - 100);
-    }
-    setUserMissed(value => value +1 )
+    setUserScore(value => value - 100);
+    setUserMissed(value => value + 1);
   };
 
   return (
