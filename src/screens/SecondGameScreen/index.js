@@ -20,8 +20,6 @@ const SecondGameScreen = () => {
     }
   }, [isGameNow]);
 
-  console.log(timeCount);
-
   useEffect(() => {
 
     let newTimeOut = 2500;

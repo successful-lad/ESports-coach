@@ -5,7 +5,7 @@ import './style.scss';
 
 const NinthGameScreen = () => {
   const [coordinatesArray, setCoordinatesArray] = useState([]);
-  const [timeCount, setTimeCount] = useState(80);
+  const [timeCount, setTimeCount] = useState(0);
   const [userHit, setUserHit] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
   const [firstAim, setFirstAim] = useState(0);
@@ -94,8 +94,8 @@ const NinthGameScreen = () => {
   }, [userHit, roundTime, coordinatesArray, timeCount])
 
   useEffect(() => {
-    if(timeCount === 121) {
-      alert(`Игра окончена`)
+    if(timeCount === 124) {
+      alert(`Игра окончена, ваш счет ${userScore}`)
       setGameResult('game number 9', userScore)
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -166,8 +166,8 @@ const NinthGameScreen = () => {
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
           <div>
-            { (isGameNow ||coordinatesArray.length > 0 ) &&
-            `время до конца раунда  ${roundTime}`}
+            { (isGameNow || coordinatesArray.length > 0 ) && timeCount < 121 &&
+            `время до конца раунда ${roundTime}`}
           </div>
           <div>
             {`Очки ${userScore}`}
@@ -176,7 +176,6 @@ const NinthGameScreen = () => {
           <div>{`Промахов ${userMissClick}`}</div>
           <div>{`Aim1 ${isFinite(firstAim) ? firstAim : 0}сек`}</div>
           <div>{`Aim2 ${isFinite(secondAim) ? secondAim : 0}сек`}</div>
-          {/* todo есть кейс где не показывает третий aim*/}
           <div>{`Aim3 ${isFinite(thirdAim) ? thirdAim : 0}сек`}</div>
         </div>
     </div>
