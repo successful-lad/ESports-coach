@@ -48,7 +48,7 @@ const SecondGameScreen = () => {
 
   useEffect(() => {
     if(timeCount === 120) {
-      setGameResult('game number 2', userScore, gameDifficulty || 1000 )
+      setGameResult('game number 1', userScore, gameDifficulty || 1000 )
       alert(`Игра окончена, ваш результат ${userScore} очков`)
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -78,6 +78,17 @@ const SecondGameScreen = () => {
 
   return (
     <div className='secondGameScreen'>
+      <div className='secondGameScreen__gameDescription'>
+        <div className='secondGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='secondGameScreen__gameDescription__aboutGame'>
+          <div>Нажимайте на шар сразу после появления</div>
+          <div>Длительность игры: 120 сек.</div>
+          <div>За попадание: +300 оч.</div>
+          <div>За промах: -100 оч.</div>
+        </div>
+      </div>
       <div className='secondGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
@@ -118,16 +129,6 @@ const SecondGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-        </div>
-      </div>
-      <div className='secondGameScreen__gameDescription'>
-        <div className='secondGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='secondGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

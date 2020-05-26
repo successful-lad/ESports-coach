@@ -50,8 +50,8 @@ const SixthGameScreen = () => {
 
   useEffect(() => {
     if (timeToFinish === 3) {
-      alert(`Игра окончена, ваш средний Aim ${averageAim}`);
-      setGameResult('game number 6', averageAim, +localStorage.getItem("elo") || 0)
+      alert(`Игра окончена, ваш средний Aim ${averageAim.toFixed(5)}`);
+      setGameResult('game number 5', averageAim)
       setCoordinatesArray([]);
       setIsGameNow(false);
       setItemDelay(0);
@@ -84,6 +84,16 @@ const SixthGameScreen = () => {
     };
   return (
     <div className='sixthGameScreen'>
+      <div className='sixthGameScreen__gameDescription'>
+        <div className='sixthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='sixthGameScreen__gameDescription__aboutGame'>
+          <div>Нажимайте на круг только после того, как изменится его цвет</div>
+          <div>Длительность игры: 10 попыток</div>
+          <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
+        </div>
+      </div>
       <div className='sixthGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
@@ -108,16 +118,13 @@ const SixthGameScreen = () => {
           )}
         </div>
         <div className='sixthGameScreen__gameWrapper__optionsBar'>
-          <div>
-            {/*{ hitResult.length < 10 && `Осталось попыток ${10 - hitResult.length}`}*/}
-          </div>
           <button
               className='sixthGameScreen__gameWrapper__optionsBar__button'
               onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div>средний шанс</div>
+          <div>средний шанс {hitResult.length > 0 ? hitResult.reduce((a, b) => +a + +b) / hitResult.length : 0} сек</div>
           <div
               className='sixthGameScreen__gameWrapper__optionsBar__table'
           >  {hitResult.map((item, index) =>
@@ -128,16 +135,6 @@ const SixthGameScreen = () => {
               </div>
           )}
           </div>
-        </div>
-      </div>
-      <div className='sixthGameScreen__gameDescription'>
-        <div className='sixthGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='sixthGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

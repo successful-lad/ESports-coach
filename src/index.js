@@ -7,7 +7,6 @@ import {
     AuthorizationScreen,
     StatisticScreen,
     GameSelectScreen,
-    FirstGameScreen,
     SecondGameScreen,
     ThirdGameScreen,
     FourthGameScreen,
@@ -30,15 +29,14 @@ ReactDOM.render(
             <Route component={SideBar} />
             <Route component={GlobalHeader} />
             <Switch>
-                <Route path={routes.getGameScreen(9)} component={NinthGameScreen} />
-                <Route path={routes.getGameScreen(8)} component={EighthGameScreen} />
-                <Route path={routes.getGameScreen(7)} component={SevenGameScreen} />
-                <Route path={routes.getGameScreen(6)} component={SixthGameScreen} />
-                <Route path={routes.getGameScreen(5)} component={FifthGameScreen} />
-                <Route path={routes.getGameScreen(4)} component={FourthGameScreen} />
-                <Route path={routes.getGameScreen(3)} component={ThirdGameScreen} />
-                <Route path={routes.getGameScreen(2)} component={SecondGameScreen} />
-                <Route path={routes.getGameScreen(1)} component={FirstGameScreen} />
+                <Route path={routes.getGameScreen(8)} component={NinthGameScreen} />
+                <Route path={routes.getGameScreen(7)} component={EighthGameScreen} />
+                <Route path={routes.getGameScreen(6)} component={SevenGameScreen} />
+                <Route path={routes.getGameScreen(5)} component={SixthGameScreen} />
+                <Route path={routes.getGameScreen(4)} component={FifthGameScreen} />
+                <Route path={routes.getGameScreen(3)} component={FourthGameScreen} />
+                <Route path={routes.getGameScreen(2)} component={ThirdGameScreen} />
+                <Route path={routes.getGameScreen(1)} component={SecondGameScreen} />
                 <Route path={routes.getSelectGameScreen()} component={GameSelectScreen} />
                 <Route path={routes.getStatisticsScreen()} component={StatisticScreen} />
                 <Route path={routes.getRegistration()} component={RegistrationScreen} />

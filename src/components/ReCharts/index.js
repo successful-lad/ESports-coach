@@ -11,6 +11,7 @@ import {
 
 
 const ReCharts = ({ gameData, title }) => {
+    console.log(gameData.filter( item => item.elo).length > 0)
     return (
         <>
             {gameData.length > 0 &&
@@ -23,7 +24,9 @@ const ReCharts = ({ gameData, title }) => {
                     margin={{top: 5, right: 20, bottom: 5, left: 0}}
                 >
                     <Line type="monotone" dataKey="score" stroke="#575969"/>
-                    <Line type="monotone" dataKey="elo" stroke="#d98a23"/>
+                    {gameData.filter( item => item.elo).length > 0 &&
+                        <Line type="monotone" dataKey="elo" stroke="#d98a23"/>
+                    }
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                     <XAxis dataKey="name"/>
                     <YAxis/>

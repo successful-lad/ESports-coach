@@ -24,7 +24,7 @@ const NinthGameScreen = () => {
           return [
             Math.floor(Math.random() * (650 - 40)) + 40,
             Math.floor(Math.random() * (650 - 40)) + 40,
-            "small"
+            "big"
           ];
         });
       setCoordinatesArray(circlePart)
@@ -48,7 +48,7 @@ const NinthGameScreen = () => {
           return [
             Math.floor(Math.random() * (650 - 40)) + 40,
             Math.floor(Math.random() * (650 - 40)) + 40,
-            "big"
+            "small"
           ];
         });
       setCoordinatesArray(circlePart)
@@ -96,7 +96,7 @@ const NinthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 124) {
       alert(`Игра окончена, ваш счет ${userScore}`)
-      setGameResult('game number 9', userScore, +localStorage.getItem("elo") || 0)
+      setGameResult('game number 8', userScore, +localStorage.getItem("elo") || 0)
       setCoordinatesArray([]);
       setTimeCount(0);
       setUserHit(0);
@@ -140,6 +140,14 @@ const NinthGameScreen = () => {
 
   return (
     <div className='ninthGameScreen'>
+      <div className='ninthGameScreen__gameDescription'>
+        <div className='ninthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='ninthGameScreen__gameDescription__aboutGame'>
+          <div>Необходимо сбить все мишени максимально быстро</div>
+        </div>
+      </div>
       <div className='ninthGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
@@ -179,16 +187,6 @@ const NinthGameScreen = () => {
           <div>{`Aim3 ${isFinite(thirdAim) ? thirdAim : 0}сек`}</div>
         </div>
     </div>
-      <div className='ninthGameScreen__gameDescription'>
-        <div className='ninthGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='ninthGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
-        </div>
-      </div>
     </div>
   )
 };

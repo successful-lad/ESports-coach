@@ -30,12 +30,6 @@ const GameSelectScreen = () => {
           >
             Game number N3
           </div>
-          <div
-            className='gameSelectScreen__section__wrapper__item'
-            onClick={() => history.push(routes.getGameScreen(4))}
-          >
-            Game number N4
-          </div>
         </div>
       </div>
       <div className="gameSelectScreen__section">
@@ -43,6 +37,12 @@ const GameSelectScreen = () => {
           Проверка Реакции
         </div>
         <div className="gameSelectScreen__section__wrapper">
+          <div
+              className='gameSelectScreen__section__wrapper__item'
+              onClick={() => history.push(routes.getGameScreen(4))}
+          >
+            Game number N4
+          </div>
           <div
             className='gameSelectScreen__section__wrapper__item'
             onClick={() => history.push(routes.getGameScreen(5))}
@@ -55,12 +55,6 @@ const GameSelectScreen = () => {
           >
             Game number N6
           </div>
-          <div
-            className='gameSelectScreen__section__wrapper__item'
-            onClick={() => history.push(routes.getGameScreen(7))}
-          >
-            Game number N7
-          </div>
         </div>
       </div>
       <div className="gameSelectScreen__section">
@@ -69,16 +63,16 @@ const GameSelectScreen = () => {
         </div>
         <div className="gameSelectScreen__section__wrapper">
           <div
+              className='gameSelectScreen__section__wrapper__item'
+              onClick={() => history.push(routes.getGameScreen(7))}
+          >
+            Game number N7
+          </div>
+          <div
             className='gameSelectScreen__section__wrapper__item'
             onClick={() => history.push(routes.getGameScreen(8))}
           >
             Game number N8
-          </div>
-          <div
-            className='gameSelectScreen__section__wrapper__item'
-            onClick={() => history.push(routes.getGameScreen(9))}
-          >
-            Game number N9
           </div>
         </div>
       </div>

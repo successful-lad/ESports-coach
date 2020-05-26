@@ -13,7 +13,7 @@ const StatisticScreen = () => {
     }
   }, []);
 
-console.log(userData)
+// console.log(userData)
 
   const firstGameData = useMemo(() =>{
      let data =  userData.filter(item => item.game === 'game number 1').map(item =>[item.result, item.elo] )
@@ -42,28 +42,28 @@ console.log(userData)
   }, [userData]);
 
   const fourthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 4').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 4').map(item =>[item.result] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
     })
     return gameData;
   }, [userData]);
 
   const fifthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 5').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 5').map(item =>[item.result] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
     })
     return gameData;
   }, [userData]);
 
   const sixthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 6').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 6').map(item =>[item.result] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
     })
     return gameData;
   }, [userData]);
@@ -86,15 +86,6 @@ console.log(userData)
     return gameData;
   }, [userData]);
 
-  const ninthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 9').map(item =>[item.result, item.elo] )
-    let gameData = [];
-    data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
-    })
-    return gameData;
-  }, [userData]);
-
   return (
     <div className='statisticScreen'>
       <div className='statisticScreen__sectionTitle'>
@@ -104,22 +95,21 @@ console.log(userData)
         <ReCharts gameData={firstGameData} title='График первой игры' />
         <ReCharts gameData={secondGameData} title='График второй игры'/>
         <ReCharts gameData={thirdGameData} title='График трерьей игры'/>
-        <ReCharts gameData={fourthGameData} title='График четвертой игры'/>
       </div>
       <div className='statisticScreen__sectionTitle'>
         Графики проверки реакции
       </div>
       <div className='statisticScreen__section'>
+        <ReCharts gameData={fourthGameData} title='График четвертой игры'/>
         <ReCharts gameData={fifthGameData} title='График пятой игры'/>
         <ReCharts gameData={sixthGameData} title='График шестой игры'/>
-        <ReCharts gameData={sevenGameData} title='График седьмой игры'/>
       </div>
       <div className='statisticScreen__sectionTitle'>
         Графики проверки скорости
       </div>
       <div className='statisticScreen__section'>
+        <ReCharts gameData={sevenGameData} title='График седьмой игры'/>
         <ReCharts gameData={eighthGameData} title='График восьмой игры'/>
-        <ReCharts gameData={ninthGameData} title='График девятой игры'/>
       </div>
     </div>
   )

@@ -35,23 +35,23 @@
 
       &__handleItem-small {
         @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
-        background: yellow;
-        height: 20px;
-        width: 20px;
+        height: 5px;
+        width: 5px;
+        background: #a7a7bf;
       }
 
       &__handleItem-middle {
         @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
-        background: #82d082;
-        height: 35px;
-        width: 35px;
+        height: 20px;
+        width: 20px;
+        background: #ffff00;
       }
 
       &__handleItem-big {
         @extend .ninthGameScreen__gameWrapper__gameScreen__handleItem;
-        background: #a7a7bf;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
+        background: #82d082;
       }
     }
     &__optionsBar {
@@ -94,6 +94,10 @@
     &__title {
       font-size: 20px;
       margin-bottom: 20px;
+    }
+
+    &__aboutGame {
+      width: 100%;
     }
   }
 }

@@ -51,8 +51,8 @@ const SevenGameScreen = () => {
 
   useEffect(() => {
     if(timeToFinish === 3 ) {
-      alert(`Игра окончена, вваш средний aim ${averageAim}`)
-      setGameResult('game number 7', averageAim, +localStorage.getItem("elo") || 0)
+      alert(`Игра окончена, вваш средний aim ${averageAim.toFixed(5)}`)
+      setGameResult('game number 6', averageAim)
       setCoordinatesArray([]);
       setTimeCount(0);
       setIsGameNow(false);
@@ -95,6 +95,16 @@ const SevenGameScreen = () => {
 
   return (
     <div className='sevenGameScreen'>
+      <div className='sevenGameScreen__gameDescription'>
+        <div className='sevenGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='sevenGameScreen__gameDescription__aboutGame'>
+          <div>Нажимайте на круг только после того, как изменится его цвет</div>
+          <div>Длительность игры: 10 попыток</div>
+          <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
+        </div>
+      </div>
       <div className='sevenGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
@@ -137,16 +147,6 @@ const SevenGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-        </div>
-      </div>
-      <div className='sevenGameScreen__gameDescription'>
-        <div className='sevenGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='sevenGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ const EighthGameScreen = () => {
   useEffect(() => {
     if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 8', userScore, gameDifficulty || 1000)
+      setGameResult('game number 7', userScore, gameDifficulty || 1000)
       setUserScore(0);
       setCoordinatesArray([]);
       setTimeCount(0);
@@ -117,6 +117,16 @@ const EighthGameScreen = () => {
 
   return (
     <div className='eighthGameScreen'>
+      <div className='eighthGameScreen__gameDescription'>
+        <div className='eighthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='eighthGameScreen__gameDescription__aboutGame'>
+          <div>Чем быстрее попадание, тем больше очков</div>
+          <div>Длительность игры: 120 сек</div>
+          <div>За промах: -100 оч.</div>
+        </div>
+      </div>
       <div className='eighthGameScreen__gameWrapper'>
         <div
           style={ !isGameNow ? { pointerEvents: "none" } : null }
@@ -160,16 +170,6 @@ const EighthGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-        </div>
-      </div>
-      <div className='eighthGameScreen__gameDescription'>
-        <div className='eighthGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='eighthGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

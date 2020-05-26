@@ -52,7 +52,7 @@ const ThirdGameScreen = () => {
   useEffect(() => {
     if(timeCount === 120) {
       alert(`Игра окончена, ваш результат ${userScore} очков`)
-      setGameResult('game number 3', userScore, gameDifficulty || 1000)
+      setGameResult('game number 2', userScore, gameDifficulty || 1000)
       setCircleCoordinates([]);
       setTimeCount(0);
       setUserScore(0);
@@ -99,6 +99,19 @@ const ThirdGameScreen = () => {
 
   return (
     <div className='thirdGameScreen'>
+      <div className='secondGameScreen__gameDescription'>
+        <div className='secondGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='secondGameScreen__gameDescription__aboutGame'>
+          <div>Нажимайте на мишень как можно ближе к центру</div>
+          <div>Длительность игры: 120 сек.</div>
+          <div>За попадание в центр : +300 оч.</div>
+          <div>За попадание во 2 диаметр: +150 оч.</div>
+          <div>За попадание в 3 диаметр: +50 оч.</div>
+          <div>За промах: -100 оч.</div>
+        </div>
+      </div>
       <div className='thirdGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? { pointerEvents: "none" } : null}
@@ -161,16 +174,6 @@ const ThirdGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-        </div>
-      </div>
-      <div className='secondGameScreen__gameDescription'>
-        <div className='secondGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='secondGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
         </div>
       </div>
     </div>

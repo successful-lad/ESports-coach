@@ -44,13 +44,17 @@ const FifthGameScreen = () => {
 
   useEffect(() => {
     if (timeToFinish === 3) {
-      alert(`Игра окончена, ваш средний Aim ${averageAim}`);
-      setGameResult('game number 5', averageAim, +localStorage.getItem("elo") || 0);
+      alert(`Игра окончена, ваш средний Aim ${averageAim.toFixed(5)}`);
+      setGameResult('game number 4', averageAim);
       setIsGameNow(false)
       setItemDelay(0);
       setDefaultTime(0);
       setHitResult([]);
       setTimeToFinish(0);
+      setArrToRender([]);
+      setClickDelay(0);
+      setAverageAim(0);
+      setDefaultTime(0);
     }
   }, [averageAim, hitResult, timeToFinish])
 
@@ -81,6 +85,16 @@ const FifthGameScreen = () => {
  */
   return (
     <div className='fifthGameScreen'>
+      <div className='fifthGameScreen__gameDescription'>
+        <div className='fifthGameScreen__gameDescription__title'>
+          Описание игры
+        </div>
+        <div className='fifthGameScreen__gameDescription__aboutGame'>
+          <div> Нажимайте на круг только после того, как изменится его цвет</div>
+          <div>Длительность игры: 10 попыток</div>
+          <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
+        </div>
+      </div>
       <div className='fifthGameScreen__gameWrapper'>
         <div
           style={!isGameNow ? { pointerEvents: "none" } : null}
@@ -110,7 +124,7 @@ const FifthGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div>средний шанс</div>
+          <div>средний шанс {hitResult.length > 0 ? hitResult.reduce((a, b) => +a + +b) / hitResult.length : 0} сек</div>
           <div
             className='fifthGameScreen__gameWrapper__optionsBar__table'
           >  {hitResult.map((item, index) =>
@@ -123,16 +137,6 @@ const FifthGameScreen = () => {
         </div>
       </div>
     </div>
-      <div className='fifthGameScreen__gameDescription'>
-        <div className='fifthGameScreen__gameDescription__title'>
-          Описание игры
-        </div>
-        <div className='fifthGameScreen__gameDescription__aboutGame'>
-          Игра нацелена на улучшение точности, измеряя все попадания и промахи,
-          позволяя игроку увидеть свои ошибки, а так же усовершенствовать свои навыки,
-          путем усложнения уровня ЕЛО.
-        </div>
-      </div>
     </div>
   )
 };
