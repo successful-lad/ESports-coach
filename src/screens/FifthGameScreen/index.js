@@ -27,8 +27,9 @@ const FifthGameScreen = () => {
     if (isGameNow && hitResult.length < 10 ) {
 
       const randomFuncId = setInterval(() => {
-    /*todo for Ilya */
+
         setArrToRender([]);
+        setItemDelay(0);
         onRandomShowBlock();
       }, (itemDelay + 1) * 1000 || 1000);
       return () => { clearInterval(randomFuncId)}
@@ -57,7 +58,7 @@ const FifthGameScreen = () => {
 
   useEffect(() => {
     if (timeToFinish === 3) {
-      alert(`Игра окончена, ваш средний Aim ${averageAim.toFixed(5)}`);
+      alert(`Игра окончена, ваш средний Aim ${averageAim.toFixed(3)}`);
       setGameResult('game number 4', averageAim);
       setIsGameNow(false)
       setItemDelay(0);
@@ -65,7 +66,6 @@ const FifthGameScreen = () => {
       setHitResult([]);
       setTimeToFinish(0);
       setArrToRender([]);
-      // setClickDelay(0);
       setAverageAim(0);
       setDefaultTime(0);
       setQuantity([]);
@@ -74,14 +74,16 @@ const FifthGameScreen = () => {
 
   const addScoreAndDelete = (event) => {
     let timeDifference = ((Date.now() - (defaultTime + itemDelay *1000)) /1000).toFixed(2)
-    setHitResult([...hitResult, timeDifference]);
+    setHitResult([...hitResult, timeDifference < 0 ? 1 : timeDifference]);
     event.stopPropagation();
     setItemDelay(0);
     setArrToRender([])
   };
 
   const handleMissClick = () => {
-    setHitResult([...hitResult, [1]]); setArrToRender([])
+    setHitResult([...hitResult, [1]]);
+    setArrToRender([]);
+    setItemDelay(0);
   };
 
   return (
@@ -94,7 +96,6 @@ const FifthGameScreen = () => {
           <div> Нажимайте на круг только после того, как изменится его цвет</div>
           <div>Длительность игры: 10 попыток</div>
           <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
-          <div>За пропущеный круг штраф 1с</div>
         </div>
       </div>
       <div className='fifthGameScreen__gameWrapper'>
@@ -105,7 +106,7 @@ const FifthGameScreen = () => {
           <div
             key={index}
             onClick={
-              (defaultTime + itemDelay *1000) - Date.now() <= 1000   ?
+              Date.now() - (defaultTime + itemDelay * 1000)  <= 1000   ?
                 event => addScoreAndDelete(event, index):
                 handleMissClick}
               className="fifthGameScreen__gameWrapper__gameScreen__handleItem"
