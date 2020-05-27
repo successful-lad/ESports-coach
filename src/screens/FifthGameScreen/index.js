@@ -7,11 +7,11 @@ const FifthGameScreen = () => {
   const [itemDelay, setItemDelay] = useState(0);
   const [arrToRender, setArrToRender] = useState([])
   const [isGameNow, setIsGameNow] = useState(false);
-  const [clickDelay, setClickDelay] = useState(0)
   const [hitResult, setHitResult] = useState([]);
   const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
   const [timeToFinish, setTimeToFinish] = useState(0);
+  const [quantity, setQuantity] = useState([]);
 
   const onRandomShowBlock = useCallback(() => {
     if (isGameNow && hitResult.length <= 10) {
@@ -19,15 +19,22 @@ const FifthGameScreen = () => {
       const delay = Math.floor(Math.random() * (3 - 1)) + 1;
       setItemDelay(delay);
       setDefaultTime(Date.now());
+      setQuantity(value => [...value, 1]);
     }
   }, [isGameNow, hitResult]);
 
   useEffect(() => {
-    if (isGameNow && hitResult.length < 11 && arrToRender.length === 0) {
-      const randomFuncId = setInterval(() => onRandomShowBlock(), 3000);
+    if (isGameNow && hitResult.length < 10 ) {
+
+      const randomFuncId = setInterval(() => {
+    /*todo for Ilya */
+        setArrToRender([]);
+        onRandomShowBlock();
+      }, (itemDelay + 1) * 1000 || 1000);
       return () => { clearInterval(randomFuncId)}
     }
-  }, [hitResult, isGameNow, onRandomShowBlock, arrToRender.length]);
+    }, [hitResult, isGameNow, onRandomShowBlock, itemDelay]);
+
 
   useEffect(() =>{
     if (hitResult.length > 0 && hitResult.length <=10) {
@@ -43,6 +50,12 @@ const FifthGameScreen = () => {
   }, [hitResult])
 
   useEffect(() => {
+    if ((quantity.length - hitResult.length) === 2) {
+      setHitResult(value => [...value, 1])
+    }
+  }, [hitResult.length, quantity.length]);
+
+  useEffect(() => {
     if (timeToFinish === 3) {
       alert(`Игра окончена, ваш средний Aim ${averageAim.toFixed(5)}`);
       setGameResult('game number 4', averageAim);
@@ -52,24 +65,15 @@ const FifthGameScreen = () => {
       setHitResult([]);
       setTimeToFinish(0);
       setArrToRender([]);
-      setClickDelay(0);
+      // setClickDelay(0);
       setAverageAim(0);
       setDefaultTime(0);
+      setQuantity([]);
     }
   }, [averageAim, hitResult, timeToFinish])
 
-  useEffect(() =>{
-    if (isGameNow && clickDelay < itemDelay + 2) {
-      const delayId = setInterval(()=> setClickDelay(value => value + 1), 1000 )
-      return () => { clearInterval(delayId)}
-    } else  {
-      setClickDelay(0)
-    }
-
-  }, [clickDelay, isGameNow, itemDelay]);
-
   const addScoreAndDelete = (event) => {
-    let timeDifference = (((Date.now() - defaultTime) / 1000) - 1).toFixed(2)
+    let timeDifference = ((Date.now() - (defaultTime + itemDelay *1000)) /1000).toFixed(2)
     setHitResult([...hitResult, timeDifference]);
     event.stopPropagation();
     setItemDelay(0);
@@ -80,9 +84,6 @@ const FifthGameScreen = () => {
     setHitResult([...hitResult, [1]]); setArrToRender([])
   };
 
-/* todo что бы рендерился новый итем,
-  возможно нужно не по самому масиву идти а проходится по его елементам, и очищать его
- */
   return (
     <div className='fifthGameScreen'>
       <div className='fifthGameScreen__gameDescription'>
@@ -93,6 +94,7 @@ const FifthGameScreen = () => {
           <div> Нажимайте на круг только после того, как изменится его цвет</div>
           <div>Длительность игры: 10 попыток</div>
           <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
+          <div>За пропущеный круг штраф 1с</div>
         </div>
       </div>
       <div className='fifthGameScreen__gameWrapper'>
@@ -103,7 +105,7 @@ const FifthGameScreen = () => {
           <div
             key={index}
             onClick={
-              clickDelay >= itemDelay ?
+              (defaultTime + itemDelay *1000) - Date.now() <= 1000   ?
                 event => addScoreAndDelete(event, index):
                 handleMissClick}
               className="fifthGameScreen__gameWrapper__gameScreen__handleItem"
@@ -124,12 +126,13 @@ const FifthGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div>средний шанс {hitResult.length > 0 ? hitResult.reduce((a, b) => +a + +b) / hitResult.length : 0} сек</div>
+          <div>средний шанс {hitResult.length > 0 ? (hitResult.reduce((a, b) => +a + +b) / hitResult.length).toFixed(3) : 0} сек</div>
           <div
             className='fifthGameScreen__gameWrapper__optionsBar__table'
           >  {hitResult.map((item, index) =>
             <div
               className='fifthGameScreen__gameWrapper__optionsBar__item'
+              key={index}
             >
               {`Aim ${index + 1} ${item}sec`}
             </div>
