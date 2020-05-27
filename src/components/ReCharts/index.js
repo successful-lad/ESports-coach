@@ -1,4 +1,6 @@
 import React from "react";
+import CustomTooltip from "../CustomTooltip";
+
 import {
     LineChart,
     Line,
@@ -9,10 +11,11 @@ import {
     Legend
 } from "recharts";
 
-
 const ReCharts = ({ gameData, title }) => {
-    console.log(gameData.filter( item => item.elo).length > 0)
-    return (
+
+   const descArr = gameData[0]?.description && [...gameData].map(item => item?.description);
+
+   return (
         <>
             {gameData.length > 0 &&
             <div>
@@ -30,7 +33,7 @@ const ReCharts = ({ gameData, title }) => {
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                     <XAxis dataKey="name"/>
                     <YAxis/>
-                    <Tooltip/>
+                    <Tooltip content={CustomTooltip} description={descArr}/>
                     <Legend />
                 </LineChart>
             </div>

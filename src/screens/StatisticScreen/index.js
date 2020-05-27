@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { ReCharts } from "../../components";
 import { getUserScore } from '../../api';
+import moment from "moment";
 
 import './style.scss';
 
@@ -13,75 +14,74 @@ const StatisticScreen = () => {
     }
   }, []);
 
-// console.log(userData)
-
   const firstGameData = useMemo(() =>{
-     let data =  userData.filter(item => item.game === 'game number 1').map(item =>[item.result, item.elo] )
+     let data =  userData.filter(item => item.game === 'game number 1').map(item =>[item.result, item.elo, item.createdAt] )
      let gameData = [];
      data.forEach((elem, index) => {
-       gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+       gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
      })
     return gameData;
   }, [userData]);
+
   const secondGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 2').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 2').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const thirdGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 3').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 3').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const fourthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 4').map(item =>[item.result] )
+    let data =  userData.filter(item => item.game === 'game number 4').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const fifthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 5').map(item =>[item.result] )
+    let data =  userData.filter(item => item.game === 'game number 5').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const sixthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 6').map(item =>[item.result] )
+    let data =  userData.filter(item => item.game === 'game number 6').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const sevenGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 7').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 7').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
 
   const eighthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 8').map(item =>[item.result, item.elo] )
+    let data =  userData.filter(item => item.game === 'game number 8').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `Попытка номер ${index +1}`, score: elem[0], elo: elem[1]}]
+      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
     })
     return gameData;
   }, [userData]);
