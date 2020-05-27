@@ -6,7 +6,7 @@
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid deepskyblue;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -17,15 +17,14 @@
 
     &__link {
       padding: 10px 30px;
-      border-radius: 2px;
+      border-radius: 4px;
       cursor: pointer;
-      border: 1px solid black;
-      transition: 0.5s ease-in color,
-                  0.5s ease-in background;
+      background: #87ddef;
+      color: white;
+      transition: 0.5s ease-in opacity;
 
       &:hover {
-        background: black;
-        color: white;
+       opacity: 0.5;
       }
 
       &:nth-child(1) {

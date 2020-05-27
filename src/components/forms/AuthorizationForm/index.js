@@ -42,7 +42,6 @@ const AuthorizationForm = () => {
                     <Field
                       name='email'
                       component={BasicInput}
-                      placeholder='enter email'
                       id='email'
                       {...input}
                       label=' Введите почту'
@@ -52,7 +51,6 @@ const AuthorizationForm = () => {
                       component={BasicInput}
                       {...input}
                       id='password'
-                      placeholder='enter password'
                       label='Введите пароль'
                       type='password'
                     />

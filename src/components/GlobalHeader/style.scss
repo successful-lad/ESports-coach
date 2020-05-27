@@ -13,18 +13,18 @@
     justify-content: flex-end;
 
     &__button {
+      border-radius: 3px;
+      color: white;
+      border: none;
       cursor: pointer;
       padding: 10px 20px;
-      border: 1px solid black;
       margin: 10px 0;
-      transition: background-color 0.5s ease-in,
-                  color 0.5s ease-in;
-      background: white;
+      transition: opacity 0.5s ease-in;
+      background: #87ddef;
       font-size: 14px;
 
       &:hover {
-        background: black;
-        color: white;
+        opacity: 0.5;
       }
     }
   }

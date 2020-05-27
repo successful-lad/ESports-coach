@@ -13,6 +13,7 @@ const GlobalHeader = ({ location }) => {
 
   const logOut = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('elo');
     history.push(routes.getAuthorization())
   }
 

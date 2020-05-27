@@ -3,7 +3,7 @@
   min-width: 1200px;
   display: flex;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid deepskyblue;
   min-height: 400px;
   margin-left: 65px;
 
@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     &__name {
       margin-bottom: 20px;
@@ -24,14 +25,15 @@
       &__item {
         cursor: pointer;
         padding: 10px 20px;
-        border: 1px solid black;
         margin: 10px 0;
-        transition: background-color 0.5s ease-in,
-        color 0.5s ease-in;
+        border-radius: 3px;
+        opacity: 1;
+        background: #87ddef;
+        color: white;
+        transition: opacity 0.5s ease-in;
 
         &:hover {
-          background: black;
-          color: white;
+          opacity: 0.5;
         }
       }
     }

@@ -34,7 +34,7 @@ const GameSelectScreen = () => {
       </div>
       <div className="gameSelectScreen__section">
         <div className="gameSelectScreen__section__name">
-          Проверка Реакции
+          Проверка реакции
         </div>
         <div className="gameSelectScreen__section__wrapper">
           <div

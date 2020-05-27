@@ -99,11 +99,11 @@ const ThirdGameScreen = () => {
 
   return (
     <div className='thirdGameScreen'>
-      <div className='secondGameScreen__gameDescription'>
-        <div className='secondGameScreen__gameDescription__title'>
+      <div className='thirdGameScreen__gameDescription'>
+        <div className='thirdGameScreen__gameDescription__title'>
           Описание игры
         </div>
-        <div className='secondGameScreen__gameDescription__aboutGame'>
+        <div className='thirdGameScreen__gameDescription__aboutGame'>
           <div>Нажимайте на мишень как можно ближе к центру</div>
           <div>Длительность игры: 120 сек.</div>
           <div>За попадание в центр : +300 оч.</div>
@@ -151,13 +151,13 @@ const ThirdGameScreen = () => {
           </div>
           }
         </div>
-        <div className='secondGameScreen__gameWrapper__optionsBar'>
-          <div className='secondGameScreen__gameWrapper__optionsBar__elo'>
+        <div className='thirdGameScreen__gameWrapper__optionsBar'>
+          <div className='thirdGameScreen__gameWrapper__optionsBar__elo'>
             <div>Рейтинг Юзера ЭЛО</div>
             {/*todo поставить валидацию только на числа*/}
             {/*todo добавить тултип дя обьяснения ЕЛО + может его границы */}
             <input
-              className='secondGameScreen__gameWrapper__optionsBar__input'
+              className='thirdGameScreen__gameWrapper__optionsBar__input'
               type="text"
               onChange={event => setDifficulty(event)}
               value={gameDifficulty}
@@ -169,7 +169,7 @@ const ThirdGameScreen = () => {
           <div>Попаданий во 2 диаметр {secondCircleHit}</div>
           <div>Попаданий в 3 диаметр {thirdCircleHit}</div>
           <button
-            className='secondGameScreen__gameWrapper__optionsBar__button'
+            className='thirdGameScreen__gameWrapper__optionsBar__button'
             onClick={() => setIsGameNow(value => !value)}
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}

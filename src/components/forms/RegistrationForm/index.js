@@ -43,7 +43,6 @@ const RegistrationForm = () => {
                   <Field
                     name='name'
                     component={BasicInput}
-                    placeholder='enter login'
                     id='login'
                     {...input}
                     label=' Введите логин'
@@ -51,7 +50,6 @@ const RegistrationForm = () => {
                   <Field
                     name='email'
                     component={BasicInput}
-                    placeholder='enter email'
                     id='email'
                     {...input}
                     label=' Введите почту'
@@ -61,7 +59,6 @@ const RegistrationForm = () => {
                     component={BasicInput}
                     {...input}
                     id='password'
-                    placeholder='enter password'
                     label='Введите пароль'
                     type='password'
                   />
