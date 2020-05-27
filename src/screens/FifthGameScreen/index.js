@@ -38,7 +38,7 @@ const FifthGameScreen = () => {
 
 
   useEffect(() =>{
-    if (hitResult.length > 0 && hitResult.length <=10) {
+    if (hitResult.length > 0 && hitResult.length <= 10) {
       setAverageAim(hitResult.reduce((a, b) => +a + +b) / hitResult.length);
     }
   }, [hitResult])

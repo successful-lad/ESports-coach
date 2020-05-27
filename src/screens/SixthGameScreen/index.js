@@ -106,7 +106,6 @@ const SixthGameScreen = () => {
             <div> Нажимайте на круг только после того, как изменится его цвет</div>
             <div>Длительность игры: 10 попыток</div>
             <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
-            <div>За пропущеный круг штраф 1с</div>
           </div>
         </div>
         <div className='sixthGameScreen__gameWrapper'>

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import {setGameResult} from "../../api";
+import React, { useState, useEffect, useCallback } from "react";
+import { setGameResult } from "../../api";
 
 import './style.scss';
 
 const SevenGameScreen = () => {
+  const [arrToRender, setArrToRender] = useState([]);
   const [coordinatesArray, setCoordinatesArray] = useState([]);
+  const [delayArr, setDelayArr] = useState([]);
   const [timeCount, setTimeCount] = useState(0);
   const [isGameNow, setIsGameNow] = useState(false);
-  const [clickDelay, setClickDelay] = useState(1)
   const [aimResults, setAimResults] = useState([]);
   const [averageAim, setAverageAim] = useState(0);
   const [defaultTime, setDefaultTime] = useState(0);
   const [timeToFinish, setTimeToFinish] = useState(0);
 
   useEffect(()=> {
-    if(isGameNow && timeCount === 0) {
-      setClickDelay(0);
+    if(coordinatesArray.length === 0) {
 
       const circlePart = Array(10)
         .fill([], 0, 10)
@@ -23,27 +23,69 @@ const SevenGameScreen = () => {
           return [
             Math.floor(Math.random() * (640 - 40)) + 40,
             Math.floor(Math.random() * (640 - 40)) + 40,
-            Math.floor(Math.random() * (5 - 1)) + 1
           ];
         });
+
+      const delayPart = Array(10)
+          .fill([], 0, 10)
+          .map(() => {
+            return [
+              Math.floor(Math.random() * (5 - 1)) + 1
+            ];
+          });
+      setDelayArr(delayPart);
       setCoordinatesArray(circlePart)
-      setDefaultTime(Date.now());
     }
-  }, [isGameNow, timeCount]);
+  }, [coordinatesArray.length]);
+
+  const onFillArray = useCallback(() => {
+      const renderData = Array(10)
+          .fill([], 0, 10)
+          .map((_, index) => {
+            return [
+            coordinatesArray[index][0],
+            coordinatesArray[index][1],
+            delayArr[index]
+            ];
+          });
+    setArrToRender(renderData);
+    setDefaultTime(Date.now());
+  }, [coordinatesArray, delayArr])
+
+  useEffect(() => {
+    if (aimResults.length === 10) {
+      setIsGameNow(false);
+      setArrToRender([]);
+      setCoordinatesArray([]);
+      const randomFuncId = setInterval(() => setTimeToFinish(value => value +1), 1000);
+      return () => { clearInterval(randomFuncId)}
+    }
+  }, [aimResults])
+
+  useEffect(() => {
+    if (isGameNow && ((arrToRender.length === 0) || timeCount === Math.max(...delayArr) + 1) ) {
+
+      const randomFuncId = setInterval(() => {
+        setDefaultTime(0)
+        setArrToRender([]);
+        setTimeCount(0);
+        onFillArray();
+      },  1000);
+      return () => { clearInterval(randomFuncId)}
+    }
+  }, [delayArr, isGameNow, onFillArray, timeCount, arrToRender.length]);
 
   useEffect(() => {
     if (isGameNow) {
       let timeCountId = setInterval(() => setTimeCount(value => value +1), 1000);
       return () => { clearInterval(timeCountId) };
     }
-    //тут чекнуть задержку
-    if( timeCount === 0 || timeCount === 9 || timeCount === 18) {
-      setClickDelay(0)
-    }
-  }, [clickDelay, isGameNow, timeCount])
+  }, [isGameNow, timeCount])
 
   useEffect(() => {
     if (aimResults.length === 10) {
+      setArrToRender([]);
+      setCoordinatesArray([]);
       const randomFuncId = setInterval(() => setTimeToFinish(value => value +1), 1000);
       return () => { clearInterval(randomFuncId)}
     }
@@ -51,46 +93,32 @@ const SevenGameScreen = () => {
 
   useEffect(() => {
     if(timeToFinish === 3 ) {
-      alert(`Игра окончена, вваш средний aim ${averageAim.toFixed(5)}`)
+      setArrToRender([]);
+      alert(`Игра окончена, вваш средний aim ${averageAim}`)
       setGameResult('game number 6', averageAim)
-      setCoordinatesArray([]);
       setTimeCount(0);
       setIsGameNow(false);
-      setClickDelay(0)
       setAimResults([]);
       setAverageAim(0);
       setTimeToFinish(0);
+      setCoordinatesArray([]);
     }
   }, [timeToFinish, averageAim])
 
   useEffect(() =>{
-    if (isGameNow && clickDelay < 10) {
-      const delayId = setInterval(() => setClickDelay(value => value + 1), 1000)
-      return () => {
-        clearInterval(delayId)
-      }
-    } else  {
-      setClickDelay(0)
-    }
-  }, [clickDelay, isGameNow, coordinatesArray]);
-
-  useEffect(() =>{
     if (aimResults.length > 0 && aimResults.length <=10) {
-      setAverageAim((aimResults.reduce((a, b) => +a + +b) / aimResults.length).toFixed(2));
+      setAverageAim((aimResults.reduce((a, b) => +a + +b) / aimResults.length).toFixed(3));
     }
   }, [aimResults]);
 
-  const deleteBlock = (id) => {
-    setCoordinatesArray(coordinatesArray.filter((arr, index) =>
-      id !== index && arr
-    ))
+  const addAimValue = (event, elementDelay) => {
+    let timeDifference = ((Date.now() - (defaultTime + elementDelay *1000)) /1000).toFixed(2)
+    setAimResults([...aimResults, (timeDifference > 1 || timeDifference < 0) ? 1 : timeDifference]);
+    event.stopPropagation();
   };
 
-  const addScoreAndDelete = (event, index, elementDelay) => {
-    let timeDifference = (((Date.now() - defaultTime) / 1000) - elementDelay - 1).toFixed(2)
-    setAimResults([...aimResults, timeDifference]);
-    event.stopPropagation();
-    deleteBlock(index);
+  const handleMissClick = () => {
+    setAimResults([...aimResults, [1]]);
   };
 
   return (
@@ -109,15 +137,14 @@ const SevenGameScreen = () => {
         <div
           style={!isGameNow ? {pointerEvents: "none"} : null}
           className="sevenGameScreen__gameWrapper__gameScreen">
-          {coordinatesArray.length > 0 && coordinatesArray.map((crts, index) => {
-            // console.log(`click delay ${clickDelay}`, `elem time ${crts[2]}`)
+          {arrToRender.length > 0 && arrToRender.map((crts, index) => {
             return (
               <div
                 key={index}
                 onClick={
-                  (clickDelay >= crts[2] || clickDelay <= crts[2] + 4) ?
-                    event => addScoreAndDelete(event, index, crts[2]):
-                    () => {}}
+                  Date.now() - (defaultTime + crts[2] * 1000)  <= 1000   ?
+                    event => addAimValue(event, crts[2]):
+                    handleMissClick}
                 className="sevenGameScreen__gameWrapper__gameScreen__handleItem"
                 style={
                   {

@@ -34,7 +34,7 @@
         position: absolute;
         z-index: 100;
         animation-name: changeBgColor ;
-        animation-duration: 4s;
+        animation-duration: 1s;
 
         &:hover {
           background: gray;
@@ -49,12 +49,6 @@
       flex-direction: column;
       height: 200px;
       justify-content: space-around;
-
-      &__elo {
-        display: flex;
-        height: 30px;
-        align-items: center;
-      }
 
       &__input {
         width: 120px;
