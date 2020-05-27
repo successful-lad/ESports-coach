@@ -157,13 +157,13 @@ const EighthGameScreen = () => {
               value={gameDifficulty}
             />
           </div>
-          <div>набрано очков {userScore}</div>
-          <div>Попаданий {userHit}</div>
-          <div>Промахов {userMissClick}</div>
-          <div>В среднем за хит {userScoreArr.length > 0 && Math.max(...userScoreArr)}</div>
-          <div>MAX за хит {userScoreArr.length > 0 && Math.max(...userScoreArr)}</div>
-          <div>Лучший Aim {aimResults.length > 0 && Math.min(...aimResults)}</div>
-          <div>осталось времени { 120 - timeCount} </div>
+          <div>набрано очков: {userScore}</div>
+          <div>Попаданий: {userHit}</div>
+          <div>Промахов: {userMissClick}</div>
+          <div>В среднем за хит: {userScoreArr.length > 0 && Math.max(...userScoreArr)}</div>
+          <div>MAX за хит: {userScoreArr.length > 0 && Math.max(...userScoreArr)}</div>
+          <div>Лучший Aim: {aimResults.length > 0 && Math.min(...aimResults)}</div>
+          <div>осталось времени: { 120 - timeCount} </div>
           <button
             className='eighthGameScreen__gameWrapper__optionsBar__button'
             onClick={() => setIsGameNow(value => !value)}

@@ -33,7 +33,7 @@ const ReCharts = ({ gameData, title }) => {
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                     <XAxis dataKey="name"/>
                     <YAxis/>
-                    <Tooltip content={CustomTooltip} description={descArr}/>
+                    <Tooltip content={CustomTooltip} description={descArr} data={gameData}/>
                     <Legend />
                 </LineChart>
             </div>

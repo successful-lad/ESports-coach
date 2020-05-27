@@ -163,11 +163,11 @@ const ThirdGameScreen = () => {
               value={gameDifficulty}
             />
           </div>
-          <div>Набрано очков {userScore}</div>
-          <div>Осталось времени {120 - timeCount}</div>
-          <div>Попаданий в 1 диаметр {firstCircleHit}</div>
-          <div>Попаданий во 2 диаметр {secondCircleHit}</div>
-          <div>Попаданий в 3 диаметр {thirdCircleHit}</div>
+          <div>Набрано очков: {userScore}</div>
+          <div>Осталось времени: {120 - timeCount}</div>
+          <div>Попаданий в 1 диаметр: {firstCircleHit}</div>
+          <div>Попаданий во 2 диаметр: {secondCircleHit}</div>
+          <div>Попаданий в 3 диаметр: {thirdCircleHit}</div>
           <button
             className='thirdGameScreen__gameWrapper__optionsBar__button'
             onClick={() => setIsGameNow(value => !value)}

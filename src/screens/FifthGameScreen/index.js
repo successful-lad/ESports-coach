@@ -93,7 +93,7 @@ const FifthGameScreen = () => {
           Описание игры
         </div>
         <div className='fifthGameScreen__gameDescription__aboutGame'>
-          <div> Нажимайте на круг только после того, как изменится его цвет</div>
+          <div>Нажимайте на круг только после того, как изменится его цвет</div>
           <div>Длительность игры: 10 попыток</div>
           <div>За нажатие на фигуру до изменения цвета: штрафная секунда</div>
         </div>
@@ -127,7 +127,7 @@ const FifthGameScreen = () => {
           >
             {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
           </button>
-          <div>средний шанс {hitResult.length > 0 ? (hitResult.reduce((a, b) => +a + +b) / hitResult.length).toFixed(3) : 0} сек</div>
+          <div>Средний шанс: {hitResult.length > 0 ? (hitResult.reduce((a, b) => +a + +b) / hitResult.length).toFixed(3) : 0} сек</div>
           <div
             className='fifthGameScreen__gameWrapper__optionsBar__table'
           >  {hitResult.map((item, index) =>
@@ -135,7 +135,7 @@ const FifthGameScreen = () => {
               className='fifthGameScreen__gameWrapper__optionsBar__item'
               key={index}
             >
-              {`Aim ${index + 1} ${item}sec`}
+              {`Aim ${index + 1}: ${item}sec`}
             </div>
           )}
         </div>

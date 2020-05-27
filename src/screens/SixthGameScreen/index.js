@@ -139,7 +139,7 @@ const SixthGameScreen = () => {
             >
               {!isGameNow ? 'Запустить игру' : 'Поставить на паузу'}
             </button>
-            <div>средний шанс {hitResult.length > 0 ? (hitResult.reduce((a, b) => +a + +b) / hitResult.length).toFixed(3) : 0} сек</div>
+            <div>Средний шанс: {hitResult.length > 0 ? (hitResult.reduce((a, b) => +a + +b) / hitResult.length).toFixed(3) : 0} сек</div>
             <div
                 className='sixthGameScreen__gameWrapper__optionsBar__table'
             >  {hitResult.map((item, index) =>
@@ -147,7 +147,7 @@ const SixthGameScreen = () => {
                     className='sixthGameScreen__gameWrapper__optionsBar__item'
                     key={index}
                 >
-                  {`Aim ${index + 1} ${item}sec`}
+                  {`Aim ${index + 1}: ${item}sec`}
                 </div>
             )}
             </div>

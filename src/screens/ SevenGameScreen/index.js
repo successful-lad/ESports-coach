@@ -94,7 +94,7 @@ const SevenGameScreen = () => {
   useEffect(() => {
     if(timeToFinish === 3 ) {
       setArrToRender([]);
-      alert(`Игра окончена, вваш средний aim ${averageAim}`)
+      alert(`Игра окончена, ваш средний Aim ${averageAim}`)
       setGameResult('game number 6', averageAim)
       setTimeCount(0);
       setIsGameNow(false);
@@ -158,14 +158,14 @@ const SevenGameScreen = () => {
           )}
         </div>
         <div className='sevenGameScreen__gameWrapper__optionsBar'>
-          <div>В среднем {averageAim}сек</div>
+          <div>Средний Aim: {averageAim}сек</div>
           <div className='sevenGameScreen__gameWrapper__optionsBar__table'>
           {aimResults.length > 0 && aimResults.map((res, index) => (
               <div
                   key={index}
                   className='sevenGameScreen__gameWrapper__optionsBar__item'
               >
-                Aim{index +1} {res}</div>
+                Aim{index +1}: {res}</div>
           ))}
           </div>
           <button

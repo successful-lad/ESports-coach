@@ -175,16 +175,16 @@ const NinthGameScreen = () => {
           </button>
           <div>
             { (isGameNow || coordinatesArray.length > 0 ) && timeCount < 121 &&
-            `время до конца раунда ${roundTime}`}
+            `Время до конца раунда: ${roundTime}`}
           </div>
           <div>
-            {`Очки ${userScore}`}
+            {`Очки: ${userScore}`}
           </div>
-          <div>{`Попаданий ${allUserHit}`}</div>
-          <div>{`Промахов ${userMissClick}`}</div>
-          <div>{`Aim1 ${isFinite(firstAim) ? firstAim : 0}сек`}</div>
-          <div>{`Aim2 ${isFinite(secondAim) ? secondAim : 0}сек`}</div>
-          <div>{`Aim3 ${isFinite(thirdAim) ? thirdAim : 0}сек`}</div>
+          <div>{`Попаданий: ${allUserHit}`}</div>
+          <div>{`Промахов: ${userMissClick}`}</div>
+          <div>{`Aim1: ${isFinite(firstAim) ? firstAim : 0}сек`}</div>
+          <div>{`Aim2: ${isFinite(secondAim) ? secondAim : 0}сек`}</div>
+          <div>{`Aim3: ${isFinite(thirdAim) ? thirdAim : 0}сек`}</div>
         </div>
     </div>
     </div>

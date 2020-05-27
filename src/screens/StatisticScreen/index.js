@@ -18,7 +18,15 @@ const StatisticScreen = () => {
      let data =  userData.filter(item => item.game === 'game number 1').map(item =>[item.result, item.elo, item.createdAt] )
      let gameData = [];
      data.forEach((elem, index) => {
-       gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
+       gameData = [
+           ...gameData,
+         {
+           name: `№${index +1}`,
+           score: elem[0],
+           elo: elem[1],
+           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+           isScore: true
+         }]
      })
     return gameData;
   }, [userData]);
@@ -27,7 +35,15 @@ const StatisticScreen = () => {
     let data =  userData.filter(item => item.game === 'game number 2').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          elo: elem[1],
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: true
+        }]
     })
     return gameData;
   }, [userData]);
@@ -36,7 +52,15 @@ const StatisticScreen = () => {
     let data =  userData.filter(item => item.game === 'game number 3').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          elo: elem[1],
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: true
+        }]
     })
     return gameData;
   }, [userData]);
@@ -45,7 +69,14 @@ const StatisticScreen = () => {
     let data =  userData.filter(item => item.game === 'game number 4').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: false
+        }]
     })
     return gameData;
   }, [userData]);
@@ -54,7 +85,14 @@ const StatisticScreen = () => {
     let data =  userData.filter(item => item.game === 'game number 5').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: false
+        }]
     })
     return gameData;
   }, [userData]);
@@ -63,28 +101,51 @@ const StatisticScreen = () => {
     let data =  userData.filter(item => item.game === 'game number 6').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], description: `Попытка N${index +1} ${moment(elem[1]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: false
+        }]
     })
     return gameData;
   }, [userData]);
 
-  const sevenGameData = useMemo(() =>{
+  const sevenGameData = useMemo(() => {
     let data =  userData.filter(item => item.game === 'game number 7').map(item =>[item.result, item.elo, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          elo: elem[1],
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: true
+        }]
     })
     return gameData;
   }, [userData]);
 
   const eighthGameData = useMemo(() =>{
-    let data =  userData.filter(item => item.game === 'game number 8').map(item =>[item.result, item.elo, item.createdAt] )
+    let data =  userData.filter(item => item.game === 'game number 8').map(item =>[item.result, item.createdAt] )
     let gameData = [];
     data.forEach((elem, index) => {
-      gameData = [...gameData, {name: `N${index +1}`, score: elem[0], elo: elem[1], description: `Попытка N${index +1} ${moment(elem[2]).format("h:mm:ss/MMMM Do YYYY")}`}]
+      gameData = [
+        ...gameData,
+        {
+          name: `№${index +1}`,
+          score: elem[0],
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          isScore: false
+        }]
     })
     return gameData;
   }, [userData]);
+
 
   return (
     <div className='statisticScreen'>

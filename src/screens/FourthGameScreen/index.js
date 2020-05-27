@@ -155,10 +155,10 @@ const FourthGameScreen = () => {
               value={gameDifficulty}
             />
           </div>
-          <div>Счет {userScore}</div>
-          <div>Попаданий {userHit}</div>
-          <div>Промахов {userMissClick}</div>
-          <div>осталось времени { 120 - timeCount} </div>
+          <div>Счет: {userScore}</div>
+          <div>Попаданий: {userHit}</div>
+          <div>Промахов: {userMissClick}</ div>
+          <div>Осталось времени: { 120 - timeCount} </div>
           <button
             className='fourthGameScreen__gameWrapper__optionsBar__button'
             onClick={() => setIsGameNow(value => !value)}
