@@ -140,7 +140,7 @@ const StatisticScreen = () => {
           name: `№${index +1}`,
           score: elem[0],
           description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
-          isScore: false
+          isScore: true
         }]
     })
     return gameData;
