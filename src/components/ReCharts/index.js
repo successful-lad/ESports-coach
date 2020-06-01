@@ -14,7 +14,7 @@ import {
 const ReCharts = ({ gameData, title }) => {
 
    const descArr = gameData[0]?.description && [...gameData].map(item => item?.description);
-    console.log(gameData.filter(item => item.isScore).length > 0)
+
    return (
         <>
             {gameData.length > 0 &&
@@ -37,10 +37,10 @@ const ReCharts = ({ gameData, title }) => {
                         <Line type="monotone" dataKey='elo' name="ELO" stroke="#d98a23"/>
                     }
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                    <XAxis dataKey="name" />
-                    <YAxis/>
+                    <XAxis dataKey="name" label={{ value: "Попытки", position: 'insideBottom', offset: -5}} />
+                    <YAxis label={{ value: gameData.filter( item => item.isScore).length > 0 ? 'Счет' : 'Время, с', angle: -90, position: 'insideLeft' }}/>
                     <Tooltip content={CustomTooltip} description={descArr} data={gameData}/>
-                    <Legend />
+                    <Legend verticalAlign="top" height={36} wrapperStyle={{marginLeft: 35}}/>
                 </LineChart>
             </div>
             }
