@@ -147,7 +147,7 @@ const EighthGameScreen = () => {
         </div>
         <div className='eighthGameScreen__gameWrapper__optionsBar'>
           <div className='eighthGameScreen__gameWrapper__optionsBar__elo'>
-            <div>Рейтинг Юзера ЭЛО</div>
+            <div>Рейтинг Юзера ELO</div>
             {/*todo поставить валидацию только на числа*/}
             {/*todo добавить тултип дя обьяснения ЕЛО + может его границы */}
             <input
