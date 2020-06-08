@@ -24,7 +24,7 @@ const StatisticScreen = () => {
            name: `№${index +1}`,
            score: elem[0],
            elo: elem[1],
-           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
            isScore: true
          }]
      })
@@ -41,7 +41,7 @@ const StatisticScreen = () => {
           name: `№${index +1}`,
           score: elem[0],
           elo: elem[1],
-          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
         }]
     })
@@ -58,7 +58,7 @@ const StatisticScreen = () => {
           name: `№${index +1}`,
           score: elem[0],
           elo: elem[1],
-          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
         }]
     })
@@ -74,7 +74,7 @@ const StatisticScreen = () => {
         {
           name: `№${index +1}`,
           score: elem[0],
-          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: false
         }]
     })
@@ -90,7 +90,7 @@ const StatisticScreen = () => {
         {
           name: `№${index +1}`,
           score: elem[0],
-          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: false
         }]
     })
@@ -106,7 +106,7 @@ const StatisticScreen = () => {
         {
           name: `№${index +1}`,
           score: elem[0],
-          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: false
         }]
     })
@@ -123,7 +123,7 @@ const StatisticScreen = () => {
           name: `№${index +1}`,
           score: elem[0],
           elo: elem[1],
-          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
         }]
     })
@@ -139,7 +139,7 @@ const StatisticScreen = () => {
         {
           name: `№${index +1}`,
           score: elem[0],
-          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss MM.DD.YYYY")}`,
+          description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
         }]
     })
