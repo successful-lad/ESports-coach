@@ -22,7 +22,7 @@ const StatisticScreen = () => {
            ...gameData,
          {
            name: `№${index +1}`,
-           score: elem[0],
+           score: elem[0] / 10,
            elo: elem[1],
            description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
            isScore: true
@@ -39,7 +39,7 @@ const StatisticScreen = () => {
         ...gameData,
         {
           name: `№${index +1}`,
-          score: elem[0],
+          score: elem[0] /10,
           elo: elem[1],
           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
@@ -56,7 +56,7 @@ const StatisticScreen = () => {
         ...gameData,
         {
           name: `№${index +1}`,
-          score: elem[0],
+          score: elem[0] /10,
           elo: elem[1],
           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
@@ -121,7 +121,7 @@ const StatisticScreen = () => {
         ...gameData,
         {
           name: `№${index +1}`,
-          score: elem[0],
+          score: elem[0] /10,
           elo: elem[1],
           description: `Попытка №${index +1} ${moment(elem[2]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
@@ -138,7 +138,7 @@ const StatisticScreen = () => {
         ...gameData,
         {
           name: `№${index +1}`,
-          score: elem[0],
+          score: elem[0] /10,
           description: `Попытка №${index +1} ${moment(elem[1]).format("HH:mm:ss DD.MM.YYYY")}`,
           isScore: true
         }]
